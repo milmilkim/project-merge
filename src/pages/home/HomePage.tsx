@@ -1,8 +1,8 @@
-import { Header, LogoAnimation, Ship, Menu } from '@/pages/home/ui';
+import { Header, LogoAnimation, Ship } from '@/pages/home/ui';
 
 import { motion } from 'framer-motion';
 import { useAtom } from 'jotai';
-import { isOpenAtom } from '@/pages/home/model/menuAtom';
+import { isOpenAtom } from '@/shared/model/menu';
 
 export const HomePage = () => {
   const [isOpen, setIsOpen] = useAtom(isOpenAtom);
@@ -36,8 +36,6 @@ export const HomePage = () => {
             Click to continue...
           </motion.span>
         )}
-
-        <Menu />
       </div>
     </>
   );
