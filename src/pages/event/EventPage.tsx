@@ -1,57 +1,10 @@
 import TextSection from '@/shared/ui/TextSection';
-import { useCallback, useEffect, useRef } from 'react';
 import Seat from '@/shared/assets/images/jari.jpg';
 import { Link } from 'react-router-dom';
 import Poster from '@/shared/assets/images/poster.jpg';
-
-// 공개키
-const KAKAO_KEY = '9c1bddd62237e59e77c3ef3b898805fa';
-const locationLatLng = { lat: 37.5569115255206, lng: 126.867878866131 };
+import { EventMap } from './ui/EventMap';
 
 export const EventPage = () => {
-  const initMap = useCallback(() => {
-    if (!kakao) return;
-
-    console.log(kakao);
-    const container = mapRef.current;
-
-    if (!container) return;
-
-    kakao.maps.load(() => {
-      const target = new kakao.maps.LatLng(locationLatLng.lat, locationLatLng.lng);
-      const options = {
-        //지도를 생성할 때 필요한 기본 옵션
-        center: target,
-        level: 3,
-      };
-
-      const map = new kakao.maps.Map(container, options);
-      // 지도에 마커를 생성하고 표시한다
-      const marker = new kakao.maps.Marker({
-        position: target, // 마커의 좌표
-        map: map, // 마커를 표시할 지도 객체
-      });
-
-      kakao.maps.event.addListener(marker, 'click', () => {
-        window.open('	https://map.kakao.com/link/map/472996223');
-      });
-    });
-  }, []);
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_KEY}&autoload=false`;
-    script.async = true;
-
-    document.head.appendChild(script);
-    script.onload = initMap;
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [initMap]);
-
-  const mapRef = useRef<HTMLDivElement | null>(null);
   return (
     <div className='px-0 md:px-10 py-10 md:max-w-4xl m-auto'>
       <TextSection title='REBIRTH N REVERSE'>
@@ -82,7 +35,7 @@ export const EventPage = () => {
           </li>
         </ul>
 
-        <div ref={mapRef} className='w-full md:w-96 aspect-video mt-3'></div>
+        <EventMap />
       </TextSection>
 
       <TextSection title='좌석 배치도'>
@@ -93,4 +46,4 @@ export const EventPage = () => {
   );
 };
 
-export default Event;
+export default EventPage;
