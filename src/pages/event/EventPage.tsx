@@ -1,13 +1,14 @@
-import TextSection from '@/components/TextSection';
+import TextSection from '@/shared/ui/TextSection';
 import { useCallback, useEffect, useRef } from 'react';
-import Seat from '@/assets/images/jari.jpg';
+import Seat from '@/shared/assets/images/jari.jpg';
 import { Link } from 'react-router-dom';
-import Poster from '@/assets/images/poster.jpg';
+import Poster from '@/shared/assets/images/poster.jpg';
 
-// 공개키라 하드코딩
+// 공개키
 const KAKAO_KEY = '9c1bddd62237e59e77c3ef3b898805fa';
+const locationLatLng = { lat: 37.5569115255206, lng: 126.867878866131 };
 
-const Event = () => {
+export const EventPage = () => {
   const initMap = useCallback(() => {
     if (!kakao) return;
 
@@ -17,7 +18,7 @@ const Event = () => {
     if (!container) return;
 
     kakao.maps.load(() => {
-      const target = new kakao.maps.LatLng(37.5569115255206, 126.867878866131);
+      const target = new kakao.maps.LatLng(locationLatLng.lat, locationLatLng.lng);
       const options = {
         //지도를 생성할 때 필요한 기본 옵션
         center: target,

@@ -1,6 +1,6 @@
-import TextSection from '@/components/TextSection';
-import Poster from '@/assets/images/eva-poster.jpeg';
-const About = () => {
+import TextSection from '@/shared/ui/TextSection';
+import Poster from '@/shared/assets/images/eva-poster.jpeg';
+export const AboutPage = () => {
   return (
     <div className='px-3 py-10 w-full md:max-w-4xl m-auto'>
       <TextSection title='머지영화제란?'>
@@ -65,4 +65,3 @@ const About = () => {
   );
 };
 
-export default About;

@@ -1,12 +1,12 @@
 // 포스터 이미지
-import KR from '@/assets/images/film/killing-romance.webp';
-import LC from '@/assets/images/film/link-click.jpeg';
-import GG from '@/assets/images/film/gone-girl.webp';
-import CS from '@/assets/images/film/castle-in-the-sky.webp';
-import US from '@/assets/images/film/unbelivable-space-love.webp';
-import CW from '@/assets/images/film/cob-web.webp';
+import KR from '@/shared/assets/images/film/killing-romance.webp';
+import LC from '@/shared/assets/images/film/link-click.jpeg';
+import GG from '@/shared/assets/images/film/gone-girl.webp';
+import CS from '@/shared/assets/images/film/castle-in-the-sky.webp';
+import US from '@/shared/assets/images/film/unbelivable-space-love.webp';
+import CW from '@/shared/assets/images/film/cob-web.webp';
 
-const films: { poster: string; title: string; description?: string }[] = [
+export const films: { poster: string; title: string; description?: string }[] = [
   {
     poster: KR,
     title: '킬링 로맨스 (2023)',

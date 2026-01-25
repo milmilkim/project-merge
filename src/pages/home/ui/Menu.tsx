@@ -1,9 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import {  useCallback } from 'react';
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAtom } from 'jotai';
-import { isOpenAtom } from '@/atoms';
-
+import { isOpenAtom } from '@/pages/home/model/menuAtom';
 
 const menus = [
   { name: '머지영화제 소개', path: '/about' },
@@ -11,7 +10,7 @@ const menus = [
   { name: '상영작', path: '/film' },
   { name: '티켓', path: '/ticket' },
 ];
-const Menu = () => {
+export const Menu = () => {
   const [isOpen, setIsOpen] = useAtom(isOpenAtom);
 
   const close = useCallback(
@@ -69,5 +68,3 @@ const Menu = () => {
     </AnimatePresence>
   );
 };
-
-export default Menu;

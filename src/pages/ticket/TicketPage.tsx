@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import Poster from '@/assets/images/poster.jpg';
-const About = () => {
+import Poster from '@/shared/assets/images/poster.jpg';
+export const TicketPage = () => {
   return (
     <div className='px-3 md:px-10 py-10 w-full md:max-w-4xl m-auto'>
       <div className='flex justify-center'>
@@ -32,5 +32,3 @@ const About = () => {
     </div>
   );
 };
-
-export default About;

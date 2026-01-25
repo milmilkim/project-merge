@@ -1,12 +1,10 @@
-import MainAnimation from '@/components/Home/MainAnimation';
-import Header from '@/components/Home/Header';
-import Ship from '@/components/Ship';
-import { motion } from 'framer-motion';
-import Menu from '@/components/layout/Menu';
-import {useAtom} from 'jotai';
-import { isOpenAtom } from '@/atoms';
+import { Header, LogoAnimation, Ship, Menu } from '@/pages/home/ui';
 
-const Home = () => {
+import { motion } from 'framer-motion';
+import { useAtom } from 'jotai';
+import { isOpenAtom } from '@/pages/home/model/menuAtom';
+
+export const HomePage = () => {
   const [isOpen, setIsOpen] = useAtom(isOpenAtom);
 
   const openMenu = () => {
@@ -22,7 +20,7 @@ const Home = () => {
         <Header />
 
         <Ship />
-        <MainAnimation />
+        <LogoAnimation />
         {!isOpen && (
           <motion.span
             animate={{
@@ -44,5 +42,3 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;

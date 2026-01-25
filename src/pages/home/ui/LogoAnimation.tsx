@@ -15,7 +15,7 @@ const textVariants = {
 
 const texts = ['취향을', '감동을', '세계를'];
 
-const MainAnimation = () => {
+export const LogoAnimation = () => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -46,5 +46,3 @@ const MainAnimation = () => {
     </div>
   );
 };
-
-export default MainAnimation;

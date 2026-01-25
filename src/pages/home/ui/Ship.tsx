@@ -1,7 +1,7 @@
-import Image from '@/assets/images/ship.png';
+import Image from '@/shared/assets/images/ship.png';
 import { motion } from 'framer-motion';
 
-const Sheep = () => {
+export const Ship = () => {
   return (
     <motion.div
       animate={{
@@ -14,5 +14,3 @@ const Sheep = () => {
     </motion.div>
   );
 };
-
-export default Sheep;

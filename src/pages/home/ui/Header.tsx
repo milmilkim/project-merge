@@ -1,7 +1,7 @@
-import Logo from '@/assets/images/logo.png';
+import Logo from '@/shared/assets/images/logo.png';
 import { motion } from 'framer-motion';
 
-const Header = () => {
+export const Header = () => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }}
@@ -20,5 +20,3 @@ const Header = () => {
     </motion.div>
   );
 };
-
-export default Header
