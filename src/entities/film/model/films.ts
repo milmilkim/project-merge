@@ -1,3 +1,5 @@
+import type { Film } from '@/entities/film';
+
 // 포스터 이미지
 import KR from '@/shared/assets/images/film/killing-romance.webp';
 import LC from '@/shared/assets/images/film/link-click.jpeg';
@@ -6,7 +8,7 @@ import CS from '@/shared/assets/images/film/castle-in-the-sky.webp';
 import US from '@/shared/assets/images/film/unbelivable-space-love.webp';
 import CW from '@/shared/assets/images/film/cob-web.webp';
 
-export const films: { poster: string; title: string; description?: string }[] = [
+export const films: Film[] = [
   {
     poster: KR,
     title: '킬링 로맨스 (2023)',

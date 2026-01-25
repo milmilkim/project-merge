@@ -3,7 +3,7 @@ import { loadSlim } from 'tsparticles-slim';
 import { Particles } from 'react-tsparticles';
 import type { Container, Engine } from 'tsparticles-engine';
 
-const Stars = () => {
+export const Stars = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
     await loadSlim(engine);
   }, []);
@@ -76,5 +76,3 @@ const Stars = () => {
     />
   );
 };
-
-export default Stars;

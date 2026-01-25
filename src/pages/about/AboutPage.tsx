@@ -53,13 +53,13 @@ export const AboutPage = () => {
           <li>- 2020.12.20: 3회 머지영화제</li>
           <li>- 2023.09.28: 4회 머지영화제: REBIRTH N REVERSE</li>
         </ul>
-        <p>
+        {/* <p>
           이전 행사의 자세한 정보는{' '}
           <a className='link' href='https://5duck.modoo.at/'>
             공식 홈페이지
           </a>
           에서 확인하세요.
-        </p>
+        </p> */}
       </TextSection>
     </div>
   );
