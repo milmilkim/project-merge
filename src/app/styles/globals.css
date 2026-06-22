@@ -21,22 +21,33 @@
 @tailwind utilities;
 
 body {
-  @apply bg-background;
+  @apply bg-black;
   @apply font-galmuri11;
-  @apply text-white;
-}
-
-a.link {
-  @apply text-point;
-  @apply underline;
-}
-
-span.point {
-  @apply text-primary;
-  @apply font-bold;
 }
 
 *,
 body {
   box-sizing: border-box;
+}
+
+/* ── 회차 테마 스코프 ── */
+/* 본문 색은 각 회차 셸의 text-* 가 담당하고, 강조 요소만 회차별로 스코프한다. */
+.theme-4th .merge-title {
+  @apply text-ed4-point;
+}
+.theme-4th span.point {
+  @apply text-ed4-primary font-bold;
+}
+.theme-4th a.link {
+  @apply text-ed4-point underline;
+}
+
+.theme-5th .merge-title {
+  @apply text-ed5-point;
+}
+.theme-5th span.point {
+  @apply text-ed5-point font-bold;
+}
+.theme-5th a.link {
+  @apply text-ed5-point underline;
 }

@@ -10,7 +10,7 @@ const TextSection: React.FC<PropsWithChildren<Props>> = ({
 }) => {
   return (
     <div className='px-10 mb-10'>
-      <h2 className='font-pyeongchang font-bold text-2xl text-point mb-1'>
+      <h2 className='merge-title font-pyeongchang font-bold text-2xl mb-1'>
         {title}
       </h2>
       {children}

@@ -4,9 +4,13 @@ import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
-import { FilmCard, films } from '@/entities/film';
+import { FilmCard, type Film } from '@/entities/film';
 
-export const FilmSwiper = () => {
+interface Props {
+  films: Film[];
+}
+
+export const FilmSwiper = ({ films }: Props) => {
   return (
     <Swiper
       modules={[Autoplay, Navigation]}
@@ -19,7 +23,7 @@ export const FilmSwiper = () => {
       slidesPerView={screen.orientation.type.includes('portrait') ? 1 : 3}>
       {films.map((film, index) => (
         <SwiperSlide className='w-full md:w-1/2 lg:w-1/3' key={index}>
-          <FilmCard {...film}  />
+          <FilmCard {...film} />
         </SwiperSlide>
       ))}
     </Swiper>
