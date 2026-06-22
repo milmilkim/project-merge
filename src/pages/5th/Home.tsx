@@ -1,17 +1,16 @@
 import Gem from '@/shared/assets/images/gem.gif';
 import { motion } from 'framer-motion';
-import { useAtom } from 'jotai';
-import { isOpenAtom } from '@/shared/model/menu';
-import { getEdition } from '@/shared/config/editions';
 
-export const Home = () => {
-  const [isOpen, setIsOpen] = useAtom(isOpenAtom);
-  const edition = getEdition('5th');
+interface Props {
+  isOpen: boolean;
+  onOpen: () => void;
+}
 
+export const Home = ({ isOpen, onOpen }: Props) => {
   return (
     <div
-      onClick={() => setIsOpen(true)}
-      className='w-full h-[100dvh] flex flex-col items-center justify-center cursor-default text-ed5-text'>
+      onClick={onOpen}
+      className='relative w-full h-[100dvh] flex flex-col items-center justify-center cursor-default text-ed5-text'>
       <motion.div
         initial={{ opacity: 0, scale: 0.6 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -24,10 +23,8 @@ export const Home = () => {
           transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
         />
       </motion.div>
-      <h1 className='font-bold text-3xl lg:text-4xl mt-6'>
-        {edition?.title}
-      </h1>
-      <p className='mt-2 text-ed5-primary'>{edition?.subtitle}</p>
+      <h1 className='font-bold text-3xl lg:text-4xl mt-6'>제5회 머지영화제</h1>
+      <p className='mt-2 text-ed5-primary'>이상한 영화 몰아보기</p>
       {!isOpen && (
         <motion.span
           animate={{ opacity: [0, 1] }}
@@ -37,7 +34,7 @@ export const Home = () => {
             ease: 'linear',
             type: 'keyframes',
           }}
-          className='text-ed5-point mt-12 cursor-pointer'>
+          className='absolute bottom-24 text-ed5-point cursor-pointer'>
           Click to continue...
         </motion.span>
       )}

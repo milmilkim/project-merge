@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { editions } from '@/shared/config/editions';
-import type { Edition } from '@/entities/edition';
+import type { EditionEntry } from '@/entities/edition';
 
 /**
  * 회차 스왑 GNB. 회차 디자인과 무관하게 공통으로 마운트된다.
@@ -18,7 +18,7 @@ export const EditionSwitcher = () => {
   const subpath = segments.slice(1).join('/');
   const current = editions.find((e) => e.slug === currentSlug);
 
-  const go = (edition: Edition) => {
+  const go = (edition: EditionEntry) => {
     setOpen(false);
     // coming-soon 회차는 하위 페이지가 없으므로 회차 홈으로
     if (edition.status === 'coming-soon' || !subpath) {
@@ -43,7 +43,8 @@ export const EditionSwitcher = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.15 }}
-            className='mt-2 list-none m-0 p-0 rounded-xl border border-current/30 bg-current/10 backdrop-blur-md overflow-hidden min-w-[120px]'>
+            style={{ margin: '8px 0 0 0', padding: 0, listStyle: 'none' }}
+            className='rounded-xl border border-current/30 bg-current/10 backdrop-blur-md overflow-hidden min-w-[120px]'>
             {editions.map((edition) => {
               const isCurrent = edition.slug === currentSlug;
               return (

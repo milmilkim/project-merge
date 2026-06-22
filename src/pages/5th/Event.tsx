@@ -1,10 +1,12 @@
 import TextSection from '@/shared/ui/TextSection';
 import { EventMap } from '@/widgets';
-import { getEdition } from '@/shared/config/editions';
+
+const VENUE = {
+  name: '인터시티서울호텔',
+  address: '서울특별시 강서구 마곡동 797-11',
+};
 
 export const Event = () => {
-  const edition = getEdition('5th');
-
   return (
     <div className='px-0 md:px-10 py-10 md:max-w-4xl m-auto text-ed5-text'>
       <TextSection title='이상한 영화 몰아보기'>
@@ -21,7 +23,7 @@ export const Event = () => {
           <li>- 일정: 추후 공개</li>
           <li>- 입장료: 추후 공개</li>
           <li>
-            - 장소: {edition?.venue?.name} ({edition?.venue?.address})
+            - 장소: {VENUE.name} ({VENUE.address})
           </li>
         </ul>
 

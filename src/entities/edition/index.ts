@@ -1,1 +1,1 @@
-export type { Edition, EditionSlug, EditionVenue } from './model/types';
+export type { EditionEntry, EditionSlug } from './model/types';

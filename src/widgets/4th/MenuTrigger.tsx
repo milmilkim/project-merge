@@ -1,13 +1,13 @@
-import { useSetAtom } from 'jotai';
-import { isOpenAtom } from '@/shared/model/menu';
 import { Button } from '@/shared/ui';
 
-export const MenuTrigger = () => {
-  const setIsOpen = useSetAtom(isOpenAtom);
+interface Props {
+  onOpen: () => void;
+}
 
+export const MenuTrigger = ({ onOpen }: Props) => {
   return (
     <Button
-      onClick={() => setIsOpen(true)}
+      onClick={onOpen}
       className='fixed top-4 right-4 z-[999] px-2 py-1 normal-case text-sm font-bold shadow-md'>
       MENU ☰
     </Button>

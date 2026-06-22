@@ -1,20 +1,16 @@
 import { Header, LogoAnimation, Ship } from './ui';
-
 import { motion } from 'framer-motion';
-import { useAtom } from 'jotai';
-import { isOpenAtom } from '@/shared/model/menu';
 
-export const Home = () => {
-  const [isOpen, setIsOpen] = useAtom(isOpenAtom);
+interface Props {
+  isOpen: boolean;
+  onOpen: () => void;
+}
 
-  const openMenu = () => {
-    setIsOpen(true);
-  };
-
+export const Home = ({ isOpen, onOpen }: Props) => {
   return (
     <div
       className='w-full h-[100dvh] flex flex-col cursor-default'
-      onClick={openMenu}>
+      onClick={onOpen}>
       <Header />
 
       <Ship />
