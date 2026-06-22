@@ -55,7 +55,6 @@ export const EditionSwitcher = () => {
                       isCurrent ? 'font-bold' : 'opacity-80'
                     }`}>
                     {edition.no}회
-                    {edition.status === 'coming-soon' && ' (예정)'}
                   </button>
                 </li>
               );

@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { GemBackground } from '@/widgets/5th/GemBackground';
 import { Menu } from '@/widgets/5th/Menu';
 import { MenuTrigger } from '@/widgets/5th/MenuTrigger';
-import { Footer, EditionSwitcher } from '@/widgets';
+import { Footer } from '@/widgets';
 import { useScrollToTop } from '@/shared/lib';
 import { Home } from './Home';
 import { About } from './About';
@@ -25,7 +25,6 @@ export default function Edition5() {
     <div className='theme-5th w-full min-h-screen bg-ed5-bg text-ed5-text'>
       <GemBackground />
       <Menu isOpen={isOpen} onClose={() => setIsOpen(false)} />
-      <EditionSwitcher />
       {!isHome && <MenuTrigger onOpen={() => setIsOpen(true)} />}
       <Routes>
         <Route

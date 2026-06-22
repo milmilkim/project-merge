@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { Stars } from '@/widgets/4th/Stars';
 import { Menu } from '@/widgets/4th/Menu';
 import { MenuTrigger } from '@/widgets/4th/MenuTrigger';
-import { Footer, EditionSwitcher } from '@/widgets';
+import { Footer } from '@/widgets';
 import { useScrollToTop } from '@/shared/lib';
 import { Home } from './Home';
 import { About } from './About';
@@ -26,7 +26,6 @@ export default function Edition4() {
     <div className='theme-4th w-full min-h-screen bg-ed4-bg text-ed4-text'>
       <Stars />
       <Menu isOpen={isOpen} onClose={() => setIsOpen(false)} />
-      <EditionSwitcher />
       {!isHome && <MenuTrigger onOpen={() => setIsOpen(true)} />}
       <Routes>
         <Route
