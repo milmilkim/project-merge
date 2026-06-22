@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, ReactElement } from 'react';
 import { BusySpinner } from './RetroIcons';
 
 /**
@@ -101,7 +101,7 @@ export const TicketWindow = () => (
 
 export interface WindowDef {
   title: string;
-  Content: () => JSX.Element;
+  Content: () => ReactElement;
 }
 
 /** 아이콘 id → 창(타이틀 + 콘텐츠 컴포넌트) 레지스트리 */

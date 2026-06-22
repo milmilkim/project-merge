@@ -7,7 +7,7 @@ interface Props {
   children: ReactNode;
   onMinimize?: () => void;
   onClose?: () => void;
-  dragConstraints?: React.RefObject<Element>;
+  dragConstraints?: React.RefObject<Element | null>;
   draggable?: boolean;
   className?: string;
 }
