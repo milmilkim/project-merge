@@ -8,10 +8,6 @@ export const Film = () => {
       <TextSection title='상영작'>
         <FilmSwiper films={films5} />
       </TextSection>
-
-      <TextSection title='상영 시간표'>
-        <p>추후 공개됩니다.</p>
-      </TextSection>
     </div>
   );
 };

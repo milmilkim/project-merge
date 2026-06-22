@@ -20,8 +20,7 @@ export const Event = () => {
 
       <TextSection title='행사 정보'>
         <ul>
-          <li>- 일정: 추후 공개</li>
-          <li>- 입장료: 추후 공개</li>
+          <li>- 일정: 2024년 12월 24일</li>
           <li>
             - 장소: {VENUE.name} ({VENUE.address})
           </li>

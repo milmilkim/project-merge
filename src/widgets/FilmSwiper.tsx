@@ -15,12 +15,14 @@ export const FilmSwiper = ({ films }: Props) => {
     <Swiper
       modules={[Autoplay, Navigation]}
       navigation={true}
-      spaceBetween={20}
       autoplay={{
         delay: 2000,
         disableOnInteraction: false,
       }}
-      slidesPerView={screen.orientation.type.includes('portrait') ? 1 : 3}>
+      breakpoints={{
+        0: { slidesPerView: 1, spaceBetween: 12 },
+        768: { slidesPerView: 3, spaceBetween: 20 },
+      }}>
       {films.map((film, index) => (
         <SwiperSlide className='w-full md:w-1/2 lg:w-1/3' key={index}>
           <FilmCard {...film} />

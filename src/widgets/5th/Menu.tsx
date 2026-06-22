@@ -7,7 +7,6 @@ const menus = [
   { name: '머지영화제 소개', path: '/5th/about' },
   { name: '5회 머지영화제', path: '/5th/event' },
   { name: '상영작', path: '/5th/film' },
-  { name: '티켓', path: '/5th/ticket' },
 ];
 
 interface Props {

@@ -9,7 +9,6 @@ import { Home } from './Home';
 import { About } from './About';
 import { Event } from './Event';
 import { Film } from './Film';
-import { Ticket } from './Ticket';
 
 export default function Edition5() {
   useScrollToTop();
@@ -36,7 +35,6 @@ export default function Edition5() {
         <Route path='about' element={<About />} />
         <Route path='event' element={<Event />} />
         <Route path='film' element={<Film />} />
-        <Route path='ticket' element={<Ticket />} />
       </Routes>
       {!isHome && <Footer />}
     </div>
