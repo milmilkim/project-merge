@@ -20,6 +20,8 @@ module.exports = {
       fontFamily: {
         galmuri11: ['galmuri11'],
         pyeongchang: ['pyeongchang'],
+        // 5회 전용 — 둥글통통 Cafe24 Ssurround
+        ed5: ['Cafe24Ssurround', 'sans-serif'],
       },
       colors: {
         // 회차 무관 공통(기존 호환용 alias = 4회 값)

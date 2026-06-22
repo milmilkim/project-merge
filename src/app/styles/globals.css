@@ -15,6 +15,15 @@
   font-weight: 300;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Cafe24Ssurround';
+  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/Cafe24Ssurround/Cafe24Ssurround.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Cafe24Ssurround/Cafe24Ssurround.woff')
+      format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @tailwind base;
 @tailwind components;
@@ -22,7 +31,6 @@
 
 body {
   @apply bg-black;
-  @apply font-galmuri11;
 }
 
 *,
@@ -31,9 +39,12 @@ body {
 }
 
 /* ── 회차 테마 스코프 ── */
-/* 본문 색은 각 회차 셸의 text-* 가 담당하고, 강조 요소만 회차별로 스코프한다. */
+/* 본문 색·폰트는 각 회차 셸이 담당하고, 강조 요소만 회차별로 스코프한다. */
+.theme-4th {
+  @apply font-galmuri11;
+}
 .theme-4th .merge-title {
-  @apply text-ed4-point;
+  @apply text-ed4-point font-pyeongchang;
 }
 .theme-4th span.point {
   @apply text-ed4-primary font-bold;
@@ -42,6 +53,9 @@ body {
   @apply text-ed4-point underline;
 }
 
+.theme-5th {
+  @apply font-ed5;
+}
 .theme-5th .merge-title {
   @apply text-ed5-point;
 }

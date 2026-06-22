@@ -13,8 +13,7 @@ export const Home = () => {
 
   return (
     <div
-      className='w-full flex flex-col cursor-default'
-      style={{ height: window.innerHeight }}
+      className='w-full h-[100dvh] flex flex-col cursor-default'
       onClick={openMenu}>
       <Header />
 

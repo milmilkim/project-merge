@@ -28,7 +28,7 @@ export default function Edition4() {
         <Route path='film' element={<Film />} />
         <Route path='ticket' element={<Ticket />} />
       </Routes>
-      <Footer />
+      {!isHome && <Footer />}
     </div>
   );
 }

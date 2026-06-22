@@ -43,7 +43,7 @@ export const EditionSwitcher = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.15 }}
-            className='mt-2 rounded-xl border border-current/30 bg-current/10 backdrop-blur-md overflow-hidden min-w-[120px]'>
+            className='mt-2 list-none m-0 p-0 rounded-xl border border-current/30 bg-current/10 backdrop-blur-md overflow-hidden min-w-[120px]'>
             {editions.map((edition) => {
               const isCurrent = edition.slug === currentSlug;
               return (
