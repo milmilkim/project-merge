@@ -46,6 +46,14 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
     }
   };
 
+  const removeComment = async (commentId: string) => {
+    try {
+      await deleteComment(post.id, commentId);
+    } catch (e) {
+      alert(e instanceof Error ? e.message : '댓글 삭제 실패');
+    }
+  };
+
   const submitComment = async () => {
     if (!text.trim()) return;
     try {
@@ -92,7 +100,7 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
                 </span>
                 {mine && (
                   <button
-                    onClick={() => deleteComment(post.id, c.id)}
+                    onClick={() => removeComment(c.id)}
                     className='shrink-0 font-galmuri11 text-[10px] text-[#999] hover:text-red-600'>
                     삭제
                   </button>
