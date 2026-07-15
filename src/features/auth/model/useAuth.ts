@@ -27,20 +27,29 @@ export function useAuth(): AuthState {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    return onAuthStateChanged(auth, async (u) => {
+    let active = true;
+    const unsub = onAuthStateChanged(auth, async (u) => {
       setUser(u);
       if (u) {
+        let admin = false;
         try {
           const snap = await getDoc(doc(db, 'admins', u.uid));
-          setIsAdmin(snap.exists());
+          admin = snap.exists();
         } catch {
-          setIsAdmin(false);
+          admin = false;
         }
+        // 언마운트됐거나 그 사이 계정이 바뀌었으면 stale write 방지
+        if (!active || auth.currentUser?.uid !== u.uid) return;
+        setIsAdmin(admin);
       } else {
         setIsAdmin(false);
       }
-      setLoading(false);
+      if (active) setLoading(false);
     });
+    return () => {
+      active = false;
+      unsub();
+    };
   }, []);
 
   const signIn = async () => {
