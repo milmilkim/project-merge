@@ -24,7 +24,7 @@ export const edition6 = {
 /**
  * 바탕화면 아이콘. art = CSS 아트 종류(시안), action: 'soon'=준비중 창, 'link'=회차 이동.
  */
-export type IconArt = 'monitor' | 'txt' | 'help' | 'ticket' | 'ed4' | 'ed5';
+export type IconArt = 'monitor' | 'txt' | 'help' | 'ticket' | 'ed4' | 'ed5' | 'board';
 
 export interface DesktopIconDef {
   id: string;
@@ -42,6 +42,7 @@ export const desktopIcons: DesktopIconDef[] = [
   { id: 'about', label: '소개.txt', art: 'txt', action: 'soon' },
   { id: 'event', label: '행사정보.hlp', art: 'help', action: 'soon' },
   { id: 'ticket', label: '티켓팅', art: 'ticket', action: 'soon', disabled: true },
+  { id: 'board', label: '게시판.exe', art: 'board', action: 'link', href: '/6th/board' },
   { id: 'ed4', label: '제4회 바로가기', art: 'ed4', action: 'link', href: '/4th' },
   { id: 'ed5', label: '제5회 바로가기', art: 'ed5', action: 'link', href: '/5th' },
 ];

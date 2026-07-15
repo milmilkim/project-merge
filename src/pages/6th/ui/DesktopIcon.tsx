@@ -108,6 +108,21 @@ const IconArtGlyph = ({ art }: { art: IconArt }) => {
           />
         </span>
       );
+    case 'board': // 게시판.exe — 실버 창 + 파란 목록 줄
+      return (
+        <span
+          className='relative block h-9 w-[32px] rounded-[2px] border border-[#6b6b6b] bg-ed6-silver'
+          style={{ boxShadow: '1px 1px 0 rgba(0,0,0,.35)' }}>
+          <span
+            className='block h-[7px] border-b border-[#6b6b6b]'
+            style={{ background: 'linear-gradient(180deg,#3f8cf3,#0a52d6)' }}
+          />
+          <span
+            className='absolute left-[4px] right-[4px] top-[12px] h-[2px] bg-ed6-lunaBlue'
+            style={{ boxShadow: '0 5px 0 #9aa,0 10px 0 #9aa' }}
+          />
+        </span>
+      );
     case 'ed4': // 제4회 — 우주 미니 스크린 + 바로가기 뱃지
       return (
         <span
