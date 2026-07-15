@@ -6,9 +6,3 @@ export const BOARDS: ReadonlyArray<{ type: BoardType; label: string }> = [
   { type: 'review', label: '리뷰게시판' },
   { type: 'notice', label: '공지게시판' },
 ];
-
-const BOARD_TYPES = BOARDS.map((b) => b.type);
-
-export function isBoardType(v: string): v is BoardType {
-  return (BOARD_TYPES as string[]).includes(v);
-}
