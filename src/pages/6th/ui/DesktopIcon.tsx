@@ -108,21 +108,12 @@ const IconArtGlyph = ({ art }: { art: IconArt }) => {
           />
         </span>
       );
-    case 'board': // 게시판.exe — 실버 창 + 파란 목록 줄
-      return (
-        <span
-          className='relative block h-9 w-[32px] rounded-[2px] border border-[#6b6b6b] bg-ed6-silver'
-          style={{ boxShadow: '1px 1px 0 rgba(0,0,0,.35)' }}>
-          <span
-            className='block h-[7px] border-b border-[#6b6b6b]'
-            style={{ background: 'linear-gradient(180deg,#3f8cf3,#0a52d6)' }}
-          />
-          <span
-            className='absolute left-[4px] right-[4px] top-[12px] h-[2px] bg-ed6-lunaBlue'
-            style={{ boxShadow: '0 5px 0 #9aa,0 10px 0 #9aa' }}
-          />
-        </span>
-      );
+    case 'board-free': // 자유게시판 — 파란 창
+      return boardGlyph('linear-gradient(180deg,#3f8cf3,#0a52d6)', '#0b52d6');
+    case 'board-review': // 리뷰게시판 — 초록 창
+      return boardGlyph('linear-gradient(180deg,#5bbd3f,#2c8417)', '#2c8417');
+    case 'board-notice': // 공지게시판 — 빨강 창
+      return boardGlyph('linear-gradient(180deg,#f59b7f,#d63a13)', '#d63a13');
     case 'ed4': // 제4회 — 우주 미니 스크린 + 바로가기 뱃지
       return (
         <span
@@ -159,6 +150,22 @@ const IconArtGlyph = ({ art }: { art: IconArt }) => {
       );
   }
 };
+
+/** 게시판 글리프 — 실버 창 + 색상별 타이틀바/목록 줄(자유·리뷰·공지 구분) */
+const boardGlyph = (bar: string, line: string) => (
+  <span
+    className='relative block h-9 w-[32px] rounded-[2px] border border-[#6b6b6b] bg-ed6-silver'
+    style={{ boxShadow: '1px 1px 0 rgba(0,0,0,.35)' }}>
+    <span
+      className='block h-[7px] border-b border-[#6b6b6b]'
+      style={{ background: bar }}
+    />
+    <span
+      className='absolute left-[4px] right-[4px] top-[12px] h-[2px]'
+      style={{ background: line, boxShadow: '0 5px 0 #9aa,0 10px 0 #9aa' }}
+    />
+  </span>
+);
 
 /** 바로가기 화살표 뱃지(시안 링크 아이콘) */
 const ShortcutBadge = () => (

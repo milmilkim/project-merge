@@ -27,7 +27,7 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
   if (!post) {
     return (
       <div className='mt-3'>
-        <p className='font-galmuri11 text-[12px] text-[#666]'>삭제되었거나 없는 글이에요.</p>
+        <p className='font-galmuri11 text-[11px] text-[#666]'>삭제되었거나 없는 글이에요.</p>
         <button onClick={onBack} className={ghostBtn}>목록으로</button>
       </div>
     );
@@ -77,8 +77,8 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
       </div>
 
       <article className='mt-2 border border-[#c4c0b2] bg-white p-3'>
-        <h2 className='font-galmuri14 text-[16px] font-bold text-ed6-text'>{post.title}</h2>
-        <p className='mt-1 font-galmuri11 text-[10px] text-[#888]'>
+        <h2 className='font-galmuri14 text-[14px] font-bold text-ed6-text'>{post.title}</h2>
+        <p className='mt-1 font-galmuri9 text-[9px] text-[#888]'>
           {post.authorName} · {fmt(post.createdAt)}
           {post.updatedAt && ' · (수정됨)'}
         </p>
@@ -95,13 +95,13 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
             const mine = !!uid && (uid === c.authorUid || auth.isAdmin);
             return (
               <li key={c.id} className='flex items-start justify-between gap-2 border-b border-[#e4e0d2] py-1'>
-                <span className='font-galmuri11 text-[12px] text-ed6-text'>
+                <span className='font-galmuri11 text-[11px] text-ed6-text'>
                   <b className='text-[#555]'>{c.authorName}</b> {c.content}
                 </span>
                 {mine && (
                   <button
                     onClick={() => removeComment(c.id)}
-                    className='shrink-0 font-galmuri11 text-[10px] text-[#999] hover:text-red-600'>
+                    className='shrink-0 font-galmuri9 text-[9px] text-[#999] hover:text-red-600'>
                     삭제
                   </button>
                 )}
@@ -117,14 +117,14 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
               onChange={(e) => setText(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && submitComment()}
               placeholder='댓글 달기'
-              className='flex-1 border border-[#9a9a9a] bg-white px-2 py-1 font-galmuri11 text-[12px] text-ed6-text'
+              className='flex-1 border border-[#9a9a9a] bg-white px-2 py-1 font-galmuri11 text-[11px] text-ed6-text'
             />
             <button onClick={submitComment} className='border border-ed6-silverBorder bg-ed6-silver px-3 font-galmuri11 text-[11px] text-ed6-lunaBlue active:translate-y-px'>
               등록
             </button>
           </div>
         ) : (
-          <p className='mt-2 font-galmuri11 text-[10px] text-[#888]'>로그인하면 댓글을 쓸 수 있어요.</p>
+          <p className='mt-2 font-galmuri9 text-[9px] text-[#888]'>로그인하면 댓글을 쓸 수 있어요.</p>
         )}
       </section>
     </div>

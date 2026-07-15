@@ -7,7 +7,6 @@ import { LegacyEditionLayout } from './LegacyEditionLayout';
 const Edition4 = lazy(() => import('@/pages/4th/Edition4'));
 const Edition5 = lazy(() => import('@/pages/5th/Edition5'));
 const Edition6 = lazy(() => import('@/pages/6th/Edition6'));
-const BoardPage = lazy(() => import('@/pages/6th/board/BoardPage'));
 
 const withSuspense = (node: ReactNode) => (
   <Suspense
@@ -30,9 +29,8 @@ export const AppRouter = createBrowserRouter([
       { path: '/5th/*', element: withSuspense(<Edition5 />) },
     ],
   },
-  // 6회 게시판 — 전체 페이지(데스크탑 아이콘에서 진입)
-  { path: '/6th/board', element: withSuspense(<BoardPage />) },
   // 6회는 자체 회차 스왑 UI(작업표시줄)를 가지므로 레이아웃 미적용.
+  // 게시판은 별도 라우트가 아니라 데스크탑 창으로 뜬다(Desktop.tsx).
   { path: '/6th/*', element: withSuspense(<Edition6 />) },
   { path: '*', element: <Navigate to={`/${LATEST}`} replace /> },
 ]);

@@ -32,7 +32,7 @@ export const BoardList = ({ board, canWrite, onOpen, onCreate }: Props) => {
       )}
       {loading && <p className='font-galmuri11 text-[11px] text-[#666]'>불러오는 중…</p>}
       {!loading && posts.length === 0 && (
-        <p className='py-6 text-center font-galmuri11 text-[12px] text-[#666]'>
+        <p className='py-6 text-center font-galmuri11 text-[11px] text-[#666]'>
           아직 글이 없어요.
         </p>
       )}
@@ -46,7 +46,7 @@ export const BoardList = ({ board, canWrite, onOpen, onCreate }: Props) => {
               <span className='truncate font-galmuri14 text-[14px] text-ed6-text'>
                 {p.title}
               </span>
-              <span className='shrink-0 font-galmuri11 text-[10px] text-[#888]'>
+              <span className='shrink-0 font-galmuri9 text-[9px] text-[#888]'>
                 {p.authorName} · {fmt(p.createdAt)}
               </span>
             </button>
