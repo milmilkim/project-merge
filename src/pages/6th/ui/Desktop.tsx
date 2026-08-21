@@ -192,7 +192,7 @@ export const Desktop = () => {
             className='flex items-center gap-[5px] rounded-[3px] border border-[#c9bfec] bg-white/90 px-2 py-[4px] font-galmuri11 text-[12px] text-[#5a4f8a] shadow-[1px_2px_0_rgba(0,0,0,.2)]'>
             <span className='h-[9px] w-[9px] rounded-[2px] bg-[#8b7fd9]' />
             공지·최신글
-            {!widgetOpen && newBoards.size > 0 && (
+            {newBoards.size > 0 && (
               <span className='font-galmuri9 text-[9px] font-bold text-[#ff3b30]'>N</span>
             )}
             <span className='text-[10px]'>{widgetOpen ? '▲' : '▼'}</span>
