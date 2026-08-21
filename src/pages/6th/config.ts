@@ -75,5 +75,5 @@ export const EDITION_NAMES: Record<number, string> = {
 /** 6회는 제목 미공개 — 호러 글리치로 가려진 제목(GlitchText로 연출) */
 export const EDITION6_GLITCH = '█ ██████ █';
 
-/** sessionStorage 키 — 부팅 인트로 1회만 노출 */
+/** localStorage 키 — 부팅 인트로 하루 1회만 노출(값 = 마지막으로 본 날짜 YYYY-MM-DD) */
 export const BOOT_FLAG = 'merge6-booted';
