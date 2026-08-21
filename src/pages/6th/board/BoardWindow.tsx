@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { AuthState } from '@/features/auth';
 import type { BoardType } from '@/entities/post';
 import { AuthBar } from './ui/AuthBar';
@@ -17,6 +17,8 @@ interface Props {
   auth: AuthState;
   /** 최근 글 위젯에서 특정 글로 바로 진입할 때. 없으면 목록부터. */
   initialPostId?: string;
+  /** 목록/상세 전환 시 호출. postId 없으면 목록. URL 동기화용. */
+  onNavigate?: (postId?: string) => void;
 }
 
 /**
@@ -24,10 +26,17 @@ interface Props {
  * 목록↔상세↔작성을 내부 상태로 전환하고, 데이터/권한은 features 훅에서 온다.
  * XpWindow 프레임은 Desktop이 씌우므로 여기선 본문만 그린다.
  */
-export const BoardWindow = ({ board, auth, initialPostId }: Props) => {
+export const BoardWindow = ({ board, auth, initialPostId, onNavigate }: Props) => {
   const [mode, setMode] = useState<Mode>(
     initialPostId ? { view: 'detail', postId: initialPostId } : { view: 'list' },
   );
+
+  // 상세면 글 id, 그 외(목록/작성/수정)는 목록 URL로
+  const urlPostId = mode.view === 'detail' ? mode.postId : undefined;
+  useEffect(() => {
+    onNavigate?.(urlPostId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlPostId]);
 
   // 공지는 관리자만 글쓰기(자유·리뷰는 로그인 유저 누구나)
   const canWrite = !!auth.user && (board !== 'notice' || auth.isAdmin);

@@ -38,7 +38,7 @@ export const PostForm = ({ board, postId, onDone, onCancel }: Props) => {
         onDone(id);
       }
     } catch (e) {
-      alert(e instanceof Error ? e.message : '저장에 실패했어요.');
+      alert(e instanceof Error ? e.message : '저장에 실패했습니다.');
       setBusy(false);
     }
   };
@@ -49,16 +49,16 @@ export const PostForm = ({ board, postId, onDone, onCancel }: Props) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder='제목'
-        className='w-full border border-[#9a9a9a] bg-white px-2 py-1 font-galmuri14 text-[14px] text-ed6-text'
+        className='w-full border border-[#9a9a9a] bg-white px-2 py-1 font-galmuri14 text-[15px] text-ed6-text'
       />
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder='내용'
         rows={8}
-        className='w-full resize-y border border-[#9a9a9a] bg-white px-2 py-1 font-galmuri14 text-[14px] leading-[1.7] text-ed6-text'
+        className='w-full resize-y border border-[#9a9a9a] bg-white px-2 py-1 font-galmuri14 text-[15px] leading-[24px] text-ed6-text'
       />
-      <div className='flex justify-end gap-2 font-galmuri11 text-[11px]'>
+      <div className='flex justify-end gap-2 font-galmuri11 text-[12px]'>
         <button onClick={onCancel} className='border border-[#9a9a9a] bg-ed6-silver px-3 py-1 active:translate-y-px'>
           취소
         </button>

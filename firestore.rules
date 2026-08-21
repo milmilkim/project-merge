@@ -15,6 +15,21 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // 글 번호 카운터: 로그인 유저가 정확히 +1 만 가능(글 작성 트랜잭션에서만 건드림)
+    match /counters/posts {
+      allow read: if signedIn();
+      allow write: if signedIn()
+        && request.resource.data.keys().hasOnly(['seq'])
+        && request.resource.data.seq == (resource == null ? 0 : resource.data.seq) + 1;
+    }
+
+    // 상영작 추천: 로그인 유저가 본인 명의로 생성, 읽기/삭제는 관리자만. 수정 없음
+    match /suggestions/{id} {
+      allow create: if signedIn() && request.resource.data.authorUid == request.auth.uid;
+      allow read, delete: if isAdmin();
+      allow update: if false;
+    }
+
     match /posts/{postId} {
       allow read: if true;
 

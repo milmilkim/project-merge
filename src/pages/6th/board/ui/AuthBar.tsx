@@ -3,10 +3,10 @@ import type { AuthState } from '@/features/auth';
 /** 상단 우측 로그인 상태 표시. Y2K 버튼 톤. */
 export const AuthBar = ({ auth }: { auth: AuthState }) => {
   if (auth.loading) {
-    return <div className='text-right font-galmuri11 text-[11px] text-[#666]'>연결 중…</div>;
+    return <div className='text-right font-galmuri11 text-[12px] text-[#666]'>연결 중…</div>;
   }
   return (
-    <div className='flex items-center justify-end gap-2 font-galmuri11 text-[11px]'>
+    <div className='flex items-center justify-end gap-2 font-galmuri11 text-[12px]'>
       {auth.user ? (
         <>
           <span className='text-ed6-text'>

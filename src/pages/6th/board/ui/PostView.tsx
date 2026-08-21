@@ -23,11 +23,11 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
   const comments = useComments(postId);
   const [text, setText] = useState('');
 
-  if (loading) return <p className='mt-3 font-galmuri11 text-[11px] text-[#666]'>불러오는 중…</p>;
+  if (loading) return <p className='mt-3 font-galmuri11 text-[12px] text-[#666]'>불러오는 중…</p>;
   if (!post) {
     return (
       <div className='mt-3'>
-        <p className='font-galmuri11 text-[11px] text-[#666]'>삭제되었거나 없는 글이에요.</p>
+        <p className='font-galmuri11 text-[12px] text-[#666]'>삭제되었거나 없는 글입니다.</p>
         <button onClick={onBack} className={ghostBtn}>목록으로</button>
       </div>
     );
@@ -37,12 +37,12 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
   const canEdit = !!uid && (uid === post.authorUid || auth.isAdmin);
 
   const remove = async () => {
-    if (!confirm('이 글을 삭제할까요?')) return;
+    if (!confirm('이 글을 삭제하시겠습니까?')) return;
     try {
       await deletePost(post.id);
       onBack();
     } catch (e) {
-      alert(e instanceof Error ? e.message : '삭제에 실패했어요.');
+      alert(e instanceof Error ? e.message : '삭제에 실패했습니다.');
     }
   };
 
@@ -69,7 +69,7 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
       <div className='flex items-center justify-between'>
         <button onClick={onBack} className={ghostBtn}>← 목록</button>
         {canEdit && (
-          <div className='flex gap-2 font-galmuri11 text-[11px]'>
+          <div className='flex gap-2 font-galmuri11 text-[12px]'>
             <button onClick={() => onEdit(post.id)} className={ghostBtn}>수정</button>
             <button onClick={remove} className={ghostBtn}>삭제</button>
           </div>
@@ -77,31 +77,31 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
       </div>
 
       <article className='mt-2 border border-[#c4c0b2] bg-white p-3'>
-        <h2 className='font-galmuri14 text-[14px] font-bold text-ed6-text'>{post.title}</h2>
-        <p className='mt-1 font-galmuri9 text-[9px] text-[#888]'>
+        <h2 className='font-galmuri14 text-[15px] font-bold text-ed6-text'>{post.title}</h2>
+        <p className='mt-1 font-galmuri9 text-[10px] text-[#888]'>
           {post.authorName} · {fmt(post.createdAt)}
           {post.updatedAt && ' · (수정됨)'}
         </p>
-        <p className='mt-3 whitespace-pre-wrap font-galmuri14 text-[14px] leading-[1.8] text-ed6-text'>
+        <p className='mt-3 whitespace-pre-wrap font-galmuri14 text-[15px] leading-[26px] text-ed6-text'>
           {post.content}
         </p>
       </article>
 
       {/* 댓글 */}
       <section className='mt-3'>
-        <h3 className='font-galmuri11 text-[11px] text-ed6-lunaBlue'>댓글 {comments.length}</h3>
+        <h3 className='font-galmuri11 text-[12px] text-ed6-lunaBlue'>댓글 {comments.length}</h3>
         <ul className='mt-1 space-y-1'>
           {comments.map((c) => {
             const mine = !!uid && (uid === c.authorUid || auth.isAdmin);
             return (
               <li key={c.id} className='flex items-start justify-between gap-2 border-b border-[#e4e0d2] py-1'>
-                <span className='font-galmuri11 text-[11px] text-ed6-text'>
+                <span className='font-galmuri11 text-[12px] text-ed6-text'>
                   <b className='text-[#555]'>{c.authorName}</b> {c.content}
                 </span>
                 {mine && (
                   <button
                     onClick={() => removeComment(c.id)}
-                    className='shrink-0 font-galmuri9 text-[9px] text-[#999] hover:text-red-600'>
+                    className='shrink-0 font-galmuri9 text-[10px] text-[#999] hover:text-red-600'>
                     삭제
                   </button>
                 )}
@@ -117,14 +117,14 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
               onChange={(e) => setText(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && submitComment()}
               placeholder='댓글 달기'
-              className='flex-1 border border-[#9a9a9a] bg-white px-2 py-1 font-galmuri11 text-[11px] text-ed6-text'
+              className='flex-1 border border-[#9a9a9a] bg-white px-2 py-1 font-galmuri11 text-[12px] text-ed6-text'
             />
-            <button onClick={submitComment} className='border border-ed6-silverBorder bg-ed6-silver px-3 font-galmuri11 text-[11px] text-ed6-lunaBlue active:translate-y-px'>
+            <button onClick={submitComment} className='border border-ed6-silverBorder bg-ed6-silver px-3 font-galmuri11 text-[12px] text-ed6-lunaBlue active:translate-y-px'>
               등록
             </button>
           </div>
         ) : (
-          <p className='mt-2 font-galmuri9 text-[9px] text-[#888]'>로그인하면 댓글을 쓸 수 있어요.</p>
+          <p className='mt-2 font-galmuri9 text-[10px] text-[#888]'>로그인하면 댓글을 쓸 수 있습니다.</p>
         )}
       </section>
     </div>
@@ -132,4 +132,4 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
 };
 
 const ghostBtn =
-  'border border-[#9a9a9a] bg-ed6-silver px-2 py-[3px] font-galmuri11 text-[11px] text-ed6-lunaBlue active:translate-y-px';
+  'border border-[#9a9a9a] bg-ed6-silver px-2 py-[3px] font-galmuri11 text-[12px] text-ed6-lunaBlue active:translate-y-px';

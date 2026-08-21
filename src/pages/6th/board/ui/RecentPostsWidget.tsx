@@ -1,6 +1,7 @@
-import { useRecentPosts } from '@/features/board';
+import { usePosts, useRecentPosts } from '@/features/board';
 import { BOARDS } from '@/shared/config/board';
 import type { Post } from '@/entities/post';
+import { NewBadge } from './NewBadge';
 
 const labelOf = (board: string) =>
   BOARDS.find((b) => b.type === board)?.label.replace('게시판', '') ?? board;
@@ -16,47 +17,86 @@ interface Props {
 }
 
 /**
- * 바탕화면 상주 '최근 글' 가젯(포스트잇 톤). 전체 게시판 통합 최신 5개를 실시간 표시.
- * 비로그인도 읽기 가능하므로 로그인과 무관하게 항상 뜬다.
+ * 바탕화면 상주 가젯 — 옛 다음 카페 메인 테이블 톤.
+ * 상단 '공지사항'(최신 3) / 하단 '최신글'(공지 제외 5) 두 섹션으로 구분. 비로그인도 읽기 가능.
  */
 export const RecentPostsWidget = ({ onOpen }: Props) => {
-  const posts = useRecentPosts(5);
+  const notices = usePosts('notice').posts.slice(0, 3);
+  // ponytail: where board!=notice 는 복합 인덱스가 필요해서, 넉넉히 받아 클라에서 거른다
+  const recent = useRecentPosts(12)
+    .filter((p) => p.board !== 'notice')
+    .slice(0, 5);
 
   return (
     <div
-      className='w-[196px] rounded-[3px] border border-[#c9b24a] shadow-[2px_3px_0_rgba(0,0,0,.2)]'
-      style={{ background: 'linear-gradient(180deg,#fffef2,#fdf4c4)' }}>
-      <div className='flex items-center gap-[6px] border-b border-[#c9b24a]/60 px-[10px] py-[6px]'>
-        <span className='h-[9px] w-[9px] rounded-[2px] bg-[#e0b93a]' />
-        <span className='font-galmuri11 text-[11px] font-bold text-[#5a4a12]'>
-          최근 글
-        </span>
-      </div>
-
-      <ul className='px-[6px] py-[5px]'>
-        {posts.length === 0 && (
-          <li className='px-1 py-2 text-center font-galmuri9 text-[9px] text-[#8a7a3a]'>
-            아직 글이 없어요
-          </li>
-        )}
-        {posts.map((p) => (
-          <li key={p.id}>
-            <button
-              onClick={() => onOpen(p)}
-              className='flex w-full items-baseline gap-[5px] rounded-[2px] px-1 py-[4px] text-left hover:bg-[#f2e79a]'>
-              <span className='shrink-0 font-galmuri9 text-[9px] text-ed6-lunaBlue'>
-                [{labelOf(p.board)}]
-              </span>
-              <span className='min-w-0 flex-1 truncate font-galmuri11 text-[11px] text-[#3a3210]'>
-                {p.title}
-              </span>
-              <span className='shrink-0 font-galmuri9 text-[9px] text-[#a08a3a]'>
-                {fmt(p.createdAt)}
-              </span>
-            </button>
-          </li>
+      className='w-full rounded-[3px] border border-[#c9bfec] shadow-[2px_3px_0_rgba(0,0,0,.2)]'
+      style={{ background: 'linear-gradient(180deg,#ffffff,#efeaff)' }}>
+      <Section title='공지사항' tone='#e8836b' empty='등록된 공지가 없습니다'>
+        {notices.map((p) => (
+          <Row key={p.id} post={p} onOpen={onOpen} />
         ))}
-      </ul>
+      </Section>
+      <Section title='최신글' tone='#8b7fd9' empty='아직 글이 없습니다'>
+        {recent.map((p) => (
+          <Row key={p.id} post={p} onOpen={onOpen} showBoard />
+        ))}
+      </Section>
     </div>
   );
 };
+
+const Section = ({
+  title,
+  tone,
+  empty,
+  children,
+}: {
+  title: string;
+  tone: string;
+  empty: string;
+  children: React.ReactNode[];
+}) => (
+  <>
+    <div className='flex items-center gap-[6px] border-y border-[#c9bfec]/60 bg-[#f5f2ff] px-[10px] py-[5px] first:border-t-0'>
+      <span className='h-[9px] w-[9px] rounded-[2px]' style={{ background: tone }} />
+      <span className='font-galmuri11 text-[12px] font-bold text-[#5a4f8a]'>{title}</span>
+    </div>
+    <ul className='px-[6px] py-[4px]'>
+      {children.length === 0 && (
+        <li className='px-1 py-[6px] text-center font-galmuri9 text-[10px] text-[#8b80b8]'>
+          {empty}
+        </li>
+      )}
+      {children}
+    </ul>
+  </>
+);
+
+const Row = ({
+  post: p,
+  onOpen,
+  showBoard,
+}: {
+  post: Post;
+  onOpen: (post: Post) => void;
+  showBoard?: boolean;
+}) => (
+  <li>
+    <button
+      onClick={() => onOpen(p)}
+      className='flex w-full items-baseline gap-[5px] rounded-[2px] px-1 py-[4px] text-left hover:bg-[#efeaff]'>
+      {showBoard && (
+        <span className='shrink-0 font-galmuri9 text-[10px] text-ed6-lunaBlue'>
+          [{labelOf(p.board)}]
+        </span>
+      )}
+      <span className='min-w-0 flex-1 truncate font-galmuri11 text-[12px] text-[#4a4466]'>
+        {p.title}
+        <NewBadge createdAt={p.createdAt} />
+      </span>
+      <span className='shrink-0 font-galmuri9 text-[10px] text-[#8b80b8]'>
+        {fmt(p.createdAt)}
+      </span>
+    </button>
+  </li>
+);
