@@ -5,6 +5,7 @@ import { editions } from '@/shared/config/editions';
 import { EDITION_NAMES, EDITION6_GLITCH } from '../config';
 import { GlitchText } from './GlitchText';
 import { TASKBAR, START_GREEN, ACCENT } from './styles';
+import type { AuthState } from '@/features/auth';
 
 interface MinimizedItem {
   id: string;
@@ -18,6 +19,7 @@ interface Props {
   onRestore: (id: string) => void;
   /** 시작메뉴 우측 항목 → 해당 창 열기 */
   onOpen: (id: string) => void;
+  auth: AuthState;
 }
 
 /** 시작메뉴 우측 메뉴 항목 */
@@ -26,13 +28,14 @@ const MENU_ITEMS = [
   { id: 'films', label: '상영작' },
   { id: 'ticket', label: '티켓팅' },
   { id: 'event', label: '행사정보' },
+  { id: 'suggest', label: '상영작 추천' },
 ];
 
 /**
  * 하단 작업표시줄 + 시작 메뉴(회차 스왑 + 메뉴).
  * editions 레지스트리를 직접 읽어 단일 출처를 유지한다.
  */
-export const Taskbar = ({ days, minimized, onRestore, onOpen }: Props) => {
+export const Taskbar = ({ days, minimized, onRestore, onOpen, auth }: Props) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -49,23 +52,38 @@ export const Taskbar = ({ days, minimized, onRestore, onOpen }: Props) => {
               transition={{ duration: 0.16, ease: 'easeOut' }}
               style={{ transformOrigin: 'bottom left' }}
               className='absolute bottom-[42px] left-1 z-[71] w-[270px] overflow-hidden rounded-t-[8px] rounded-b-[6px] border border-ed6-silverBorder shadow-[0_10px_24px_rgba(0,0,0,.3)]'>
-              {/* 헤더 */}
-              <div
-                className='flex items-center gap-[9px] px-3 py-[10px]'
-                style={{ background: 'linear-gradient(180deg,#1f8be8,#0b52d6)' }}>
+              {/* 헤더 — 실제 사용자(구글 프로필). 클릭 시 계정 창 / 비로그인은 로그인 */}
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  if (auth.user) onOpen('profile');
+                  else auth.signIn();
+                }}
+                className='flex w-full items-center gap-[9px] px-3 py-[10px] text-left'
+                style={{ background: 'linear-gradient(180deg,#b3aaf0,#8b7fd9)' }}>
+                {auth.user?.photoURL ? (
+                  <img
+                    src={auth.user.photoURL}
+                    alt=''
+                    referrerPolicy='no-referrer'
+                    className='h-[30px] w-[30px] rounded-[5px] border border-white/70'
+                    style={{ boxShadow: `0 0 8px ${ACCENT}` }}
+                  />
+                ) : (
+                  <span
+                    className='h-[30px] w-[30px] rounded-[5px]'
+                    style={{
+                      background: `radial-gradient(circle at 35% 30%,${ACCENT},#6f63c8)`,
+                      boxShadow: `0 0 8px ${ACCENT}`,
+                    }}
+                  />
+                )}
                 <span
-                  className='h-[30px] w-[30px] rounded-[5px]'
-                  style={{
-                    background: `radial-gradient(circle at 35% 30%,${ACCENT},#0b88d6)`,
-                    boxShadow: `0 0 8px ${ACCENT}`,
-                  }}
-                />
-                <span
-                  className='font-os text-[13px] font-bold text-white'
+                  className='min-w-0 truncate font-os text-[13px] font-bold text-white'
                   style={{ textShadow: '1px 1px 2px rgba(0,0,40,.5)' }}>
-                  방문자 — 머지영화제
+                  {auth.loading ? '…' : auth.user?.displayName ?? '로그인'}
                 </span>
-              </div>
+              </button>
 
               {/* 2단 */}
               <div className='flex bg-white'>
@@ -85,7 +103,7 @@ export const Taskbar = ({ days, minimized, onRestore, onOpen }: Props) => {
                           current
                             ? {
                                 background:
-                                  'linear-gradient(180deg,#2e7bef,#0b52d6)',
+                                  'linear-gradient(180deg,#ada3ee,#8b7fd9)',
                                 boxShadow: 'inset 0 1px 0 rgba(255,255,255,.3)',
                               }
                             : undefined
@@ -93,18 +111,18 @@ export const Taskbar = ({ days, minimized, onRestore, onOpen }: Props) => {
                         <EditionMini no={e.no} />
                         <span className='min-w-0 flex-1'>
                           <span
-                            className={`font-galmuri11 block text-[11px] leading-tight ${
+                            className={`font-galmuri11 block text-[12px] leading-[14px] ${
                               current ? 'text-white' : 'text-[#222]'
                             }`}>
                             제{e.no}회
                             {current && <b style={{ color: ACCENT }}> · 현재</b>}
                           </span>
                           {current ? (
-                            <GlitchText className='font-galmuri11 block text-[11px] leading-tight text-white/80'>
+                            <GlitchText className='font-galmuri11 block text-[12px] leading-[14px] text-white/80'>
                               {EDITION6_GLITCH}
                             </GlitchText>
                           ) : (
-                            <span className='font-galmuri11 block truncate text-[11px] leading-tight text-[#888]'>
+                            <span className='font-galmuri11 block truncate text-[12px] leading-[14px] text-[#888]'>
                               {EDITION_NAMES[e.no]}
                             </span>
                           )}
@@ -125,7 +143,7 @@ export const Taskbar = ({ days, minimized, onRestore, onOpen }: Props) => {
                         setOpen(false);
                         onOpen(m.id);
                       }}
-                      className='font-galmuri11 block w-full rounded-[3px] px-1 py-[6px] text-left text-[11px] text-[#0b3a8a] hover:bg-ed6-lunaBlue2/20'>
+                      className='font-galmuri11 block w-full rounded-[3px] px-1 py-[6px] text-left text-[12px] text-[#5a4f8a] hover:bg-ed6-lunaBlue2/20'>
                       {m.label}
                     </button>
                   ))}
@@ -135,11 +153,17 @@ export const Taskbar = ({ days, minimized, onRestore, onOpen }: Props) => {
               {/* 푸터 */}
               <div
                 className='flex justify-end gap-[14px] px-3 py-[7px]'
-                style={{ background: 'linear-gradient(180deg,#1f8be8,#0b52d6)' }}>
-                <span className='flex items-center gap-[5px] font-os text-[11px] text-white'>
+                style={{ background: 'linear-gradient(180deg,#b3aaf0,#8b7fd9)' }}>
+                <button
+                  onClick={() => {
+                    setOpen(false);
+                    if (auth.user) auth.signOut();
+                    else auth.signIn();
+                  }}
+                  className='flex items-center gap-[5px] font-os text-[11px] text-white'>
                   <span className='h-[14px] w-[14px] rounded-[3px] border-[1.5px] border-white' />
-                  로그오프
-                </span>
+                  {auth.user ? '로그오프' : '로그인'}
+                </button>
                 <span className='flex items-center gap-[5px] font-os text-[11px] text-white'>
                   <span className='h-[14px] w-[14px] rounded-full border-[1.5px] border-white bg-[#e03a13]' />
                   종료
@@ -152,7 +176,7 @@ export const Taskbar = ({ days, minimized, onRestore, onOpen }: Props) => {
 
       {/* 작업표시줄 바 */}
       <div
-        className='flex h-[42px] items-center border-t border-[#5fa8ff]'
+        className='flex h-[42px] items-center border-t border-[#d8d2f0] backdrop-blur-md shadow-[0_-2px_8px_rgba(120,110,190,.15)]'
         style={{ background: TASKBAR }}>
         <button
           onClick={() => setOpen((o) => !o)}
@@ -163,14 +187,13 @@ export const Taskbar = ({ days, minimized, onRestore, onOpen }: Props) => {
           }}>
           <span
             className='font-os text-[16px] font-bold italic text-white'
-            style={{ textShadow: '1px 1px 2px rgba(0,40,0,.6)' }}>
+            style={{ textShadow: '1px 1px 2px rgba(40,30,90,.5)' }}>
             시작
           </span>
         </button>
 
         <span
-          className='mx-[8px] h-6 w-px shrink-0 bg-black/25'
-          style={{ boxShadow: '1px 0 0 rgba(255,255,255,.2)' }}
+          className='mx-[8px] h-6 w-px shrink-0 bg-[#d8d2f0]'
         />
 
         {/* 열린 작업(=최소화된 창 복원) */}
@@ -179,18 +202,13 @@ export const Taskbar = ({ days, minimized, onRestore, onOpen }: Props) => {
             <button
               key={m.id}
               onClick={() => onRestore(m.id)}
-              className='flex h-7 min-w-0 max-w-[200px] flex-1 items-center gap-[7px] rounded-[4px] border border-white/35 px-[10px]'
-              style={{
-                background: 'linear-gradient(180deg,#2e7bef,#1257cc)',
-                boxShadow: 'inset 0 1px 0 rgba(255,255,255,.4)',
-              }}>
+              className='flex h-7 min-w-0 max-w-[200px] flex-1 items-center gap-[7px] rounded-[4px] border border-[#d8d2f0] bg-white/70 px-[10px] hover:bg-white'
+              >
               <span
                 className='h-[13px] w-[13px] shrink-0 rounded-[2px]'
-                style={{ background: ACCENT, boxShadow: `0 0 5px ${ACCENT}` }}
+                style={{ background: ACCENT }}
               />
-              <span
-                className='truncate font-os text-[12px] text-white'
-                style={{ textShadow: '1px 1px 1px rgba(0,0,40,.5)' }}>
+              <span className='truncate font-os text-[12px] text-[#4a4466]'>
                 {m.title}
               </span>
             </button>
@@ -199,13 +217,12 @@ export const Taskbar = ({ days, minimized, onRestore, onOpen }: Props) => {
 
         {/* 트레이 — D-??? 카운트다운 */}
         <div
-          className='flex h-full shrink-0 items-center border-l border-[#5fa8ff] px-[14px]'
-          style={{ background: 'linear-gradient(180deg,#1f6fe6,#0e51c9)' }}>
-          <span className='flex flex-col items-center leading-tight text-white'>
-            <span className='font-galmuri11 text-[11px]'>
+          className='flex h-full shrink-0 items-center border-l border-[#d8d2f0] px-[14px]'>
+          <span className='flex flex-col items-center leading-tight text-[#4a4466]'>
+            <span className='font-galmuri11 text-[12px]'>
               D-{days === null ? '???' : days}
             </span>
-            <span className='font-galmuri9 text-[9px]' style={{ color: ACCENT }}>
+            <span className='font-galmuri9 text-[10px] text-[#8b7fd9]'>
               COUNTDOWN
             </span>
           </span>
@@ -246,7 +263,7 @@ const EditionMini = ({ no }: { no: number }) => {
   return (
     <span
       className='relative block h-5 w-6 shrink-0 rounded-[2px]'
-      style={{ background: 'linear-gradient(180deg,#7ec850,#15a8e6)' }}>
+      style={{ background: 'linear-gradient(180deg,#a9e0a0,#a8d8f0)' }}>
       <span
         className='absolute inset-0'
         style={{

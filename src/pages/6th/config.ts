@@ -29,6 +29,7 @@ export type IconArt =
   | 'txt'
   | 'help'
   | 'ticket'
+  | 'suggest'
   | 'ed4'
   | 'ed5'
   | 'board-free'
@@ -52,19 +53,13 @@ export const desktopIcons: DesktopIconDef[] = [
   { id: 'about', label: '소개.txt', art: 'txt', action: 'soon' },
   { id: 'event', label: '행사정보.hlp', art: 'help', action: 'soon' },
   { id: 'ticket', label: '티켓팅', art: 'ticket', action: 'soon', disabled: true },
+  { id: 'suggest', label: '상영작 추천', art: 'suggest', action: 'soon' },
   // 게시판 3종 — 각 아이콘이 자기 게시판 창을 연다(id의 board: 뒤가 BoardType)
+  { id: 'board:notice', label: '공지게시판', art: 'board-notice', action: 'board' },
   { id: 'board:free', label: '자유게시판', art: 'board-free', action: 'board' },
   { id: 'board:review', label: '리뷰게시판', art: 'board-review', action: 'board' },
-  { id: 'board:notice', label: '공지게시판', art: 'board-notice', action: 'board' },
   { id: 'ed4', label: '제4회 바로가기', art: 'ed4', action: 'link', href: '/4th' },
   { id: 'ed5', label: '제5회 바로가기', art: 'ed5', action: 'link', href: '/5th' },
-];
-
-/** CRT 마스코트 '삐삐'의 말풍선 대사(HTML 허용 — <b>/<br> 강조 가능) */
-export const mascotMessages = [
-  '제6회가 곧 깨어납니다…<br>상영작 라인업 <b style="color:#0b52d6;">곧 공개!</b>',
-  '상영작 라인업이 곧 공개됩니다.<br>알림을 켜두세요!',
-  '디스크 조각 모음 중…<br><b style="color:#0b52d6;">잠시만</b> 기다려 주세요.',
 ];
 
 /**

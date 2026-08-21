@@ -5,13 +5,15 @@ interface Props {
   selected: boolean;
   onSelect: (id: string) => void;
   onOpen: (def: DesktopIconDef) => void;
+  /** 새 글 N 배지(게시판 아이콘) */
+  badge?: boolean;
 }
 
 /**
  * 바탕화면 아이콘. CSS 아트 글리프 + 픽셀 라벨.
  * 1번 클릭 = 선택(하이라이트), 선택된 상태에서 다시 클릭 = 실행. (모바일 친화)
  */
-export const DesktopIcon = ({ def, selected, onSelect, onOpen }: Props) => {
+export const DesktopIcon = ({ def, selected, onSelect, onOpen, badge }: Props) => {
   const handleClick = () => {
     if (selected) onOpen(def);
     else onSelect(def.id);
@@ -26,12 +28,21 @@ export const DesktopIcon = ({ def, selected, onSelect, onOpen }: Props) => {
         background: selected ? 'rgba(11,82,214,.42)' : 'transparent',
         opacity: def.disabled ? 0.62 : 1,
       }}>
-      <IconArtGlyph art={def.art} />
+      <span className='relative'>
+        <IconArtGlyph art={def.art} />
+        {badge && (
+          <span
+            aria-label='새 글'
+            className='absolute -right-[9px] -top-[5px] rounded-[2px] border border-white bg-[#ff3b30] px-[3px] font-galmuri9 text-[9px] font-bold leading-[12px] text-white'>
+            N
+          </span>
+        )}
+      </span>
       <span
-        className='font-galmuri11 text-[11px] leading-[1.25] text-white'
+        className='font-galmuri11 text-[12px] leading-[14px] text-white drop-shadow-[1px_1px_1px_rgba(70,60,120,.6)]'
         style={{
           textShadow: selected ? 'none' : '1px 1px 2px #000',
-          background: selected ? '#0b52d6' : 'transparent',
+          background: selected ? '#8b7fd9' : 'transparent',
           padding: selected ? '1px 3px' : 0,
         }}
         dangerouslySetInnerHTML={{ __html: labelHtml(def) }}
@@ -56,7 +67,7 @@ const IconArtGlyph = ({ art }: { art: IconArt }) => {
           style={{ boxShadow: '1px 1px 0 rgba(0,0,0,.35)' }}>
           <span
             className='block h-2 border-b border-[#6b6b6b]'
-            style={{ background: 'linear-gradient(180deg,#3f8cf3,#0a52d6)' }}
+            style={{ background: 'linear-gradient(180deg,#c3bcf4,#8b7fd9)' }}
           />
           <span
             className='absolute left-[5px] right-[5px] top-[14px] h-[2px] bg-[#9a9a9a]'
@@ -74,7 +85,7 @@ const IconArtGlyph = ({ art }: { art: IconArt }) => {
             style={{ clipPath: 'polygon(0 0,100% 100%,0 100%)' }}
           />
           <span
-            className='absolute left-[5px] right-[5px] top-2 h-[2px] bg-[#1453c8]'
+            className='absolute left-[5px] right-[5px] top-2 h-[2px] bg-[#8b7fd9]'
             style={{ boxShadow: '0 5px 0 #9aa,0 10px 0 #9aa,0 15px 0 #9aa,0 20px 0 #9aa' }}
           />
         </span>
@@ -84,7 +95,7 @@ const IconArtGlyph = ({ art }: { art: IconArt }) => {
         <span
           className='flex h-[30px] w-[30px] items-center justify-center rounded-full font-os text-[18px] font-bold text-white'
           style={{
-            background: 'linear-gradient(180deg,#5ea0f5,#0b52d6)',
+            background: 'linear-gradient(180deg,#c3bcf4,#8b7fd9)',
             boxShadow: '1px 1px 0 rgba(0,0,0,.3)',
           }}>
           ?
@@ -108,12 +119,30 @@ const IconArtGlyph = ({ art }: { art: IconArt }) => {
           />
         </span>
       );
+    case 'suggest': // 상영작 추천 — 편지 봉투
+      return (
+        <span
+          className='relative block h-[26px] w-[36px] overflow-hidden rounded-[2px] border border-[#8a8a8a] bg-white'
+          style={{ boxShadow: '1px 1px 0 rgba(0,0,0,.3)' }}>
+          <span
+            className='absolute inset-x-0 top-0 h-[14px]'
+            style={{
+              background: '#efeaff',
+              clipPath: 'polygon(0 0,100% 0,50% 100%)',
+              borderBottom: '1px solid #8b7fd9',
+            }}
+          />
+          <span className='absolute right-[3px] top-[9px] font-os text-[11px] leading-none text-[#e8a82c]'>
+            ★
+          </span>
+        </span>
+      );
     case 'board-free': // 자유게시판 — 파란 창
-      return boardGlyph('linear-gradient(180deg,#3f8cf3,#0a52d6)', '#0b52d6');
+      return boardGlyph('linear-gradient(180deg,#c3bcf4,#8b7fd9)', '#8b7fd9');
     case 'board-review': // 리뷰게시판 — 초록 창
-      return boardGlyph('linear-gradient(180deg,#5bbd3f,#2c8417)', '#2c8417');
+      return boardGlyph('linear-gradient(180deg,#a9e0a0,#5fae6e)', '#5fae6e');
     case 'board-notice': // 공지게시판 — 빨강 창
-      return boardGlyph('linear-gradient(180deg,#f59b7f,#d63a13)', '#d63a13');
+      return boardGlyph('linear-gradient(180deg,#f8c0b0,#e8836b)', '#e8836b');
     case 'ed4': // 제4회 — 우주 미니 스크린 + 바로가기 뱃지
       return (
         <span

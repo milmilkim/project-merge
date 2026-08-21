@@ -1,5 +1,8 @@
 import type { ReactNode, ReactElement } from 'react';
 import { BusySpinner } from './RetroIcons';
+import { CoverFlow } from './CoverFlow';
+import { SuggestWindow } from './SuggestWindow';
+import type { AuthState } from '@/features/auth';
 
 /**
  * 데스크탑 창 콘텐츠 모음.
@@ -18,7 +21,7 @@ const Notepad = ({ children }: { children: ReactNode }) => (
       <span>도움말</span>
     </div>
     <div
-      className='font-galmuri14 m-2 border border-[#9a9a9a] bg-white p-3 text-[14px] leading-[1.7] text-[#222]'
+      className='font-galmuri14 m-2 border border-[#9a9a9a] bg-white p-3 text-[15px] leading-[24px] text-[#222]'
       style={{ boxShadow: 'inset 1px 1px 0 #cfcabd' }}>
       {children}
     </div>
@@ -72,19 +75,8 @@ export const EventWindow = () => (
   </Notepad>
 );
 
-/** 상영작.exe — 라인업 준비중 */
-export const FilmsWindow = () => (
-  <Notepad>
-    <Point>상영작</Point>
-    <br />
-    <br />
-    올해의 라인업을 큐레이션하는 중입니다. 공개되면 알림으로 가장 먼저
-    전해드릴게요.
-    <br />
-    <br />
-    <Pending label='라인업 큐레이션 진행중…' />
-  </Notepad>
-);
+/** 상영작.exe — 커버플로우 라인업 브라우저(포스터 TBD) */
+export const FilmsWindow = () => <CoverFlow />;
 
 /** 티켓팅 — 준비중(비활성) */
 export const TicketWindow = () => (
@@ -92,7 +84,7 @@ export const TicketWindow = () => (
     <Point>티켓팅</Point>
     <br />
     <br />
-    예매는 아직 열리지 않았어요. 상영작 공개 후 오픈 예정입니다.
+    예매는 아직 열리지 않았습니다. 상영작 공개 후 오픈 예정입니다.
     <br />
     <br />
     <Pending label='예매 오픈 준비중…' />
@@ -101,7 +93,8 @@ export const TicketWindow = () => (
 
 export interface WindowDef {
   title: string;
-  Content: () => ReactElement;
+  /** auth가 필요한 창(추천 폼 등)만 받아 쓰고, 나머지는 무시하면 된다 */
+  Content: (props: { auth: AuthState }) => ReactElement;
 }
 
 /** 아이콘 id → 창(타이틀 + 콘텐츠 컴포넌트) 레지스트리 */
@@ -110,4 +103,5 @@ export const WINDOW_CONTENT: Record<string, WindowDef> = {
   event: { title: '행사정보.hlp — 도움말', Content: EventWindow },
   films: { title: '상영작.exe', Content: FilmsWindow },
   ticket: { title: '티켓팅', Content: TicketWindow },
+  suggest: { title: '상영작 추천', Content: SuggestWindow },
 };
