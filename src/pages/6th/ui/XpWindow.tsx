@@ -59,7 +59,7 @@ export const XpWindow = ({
 
       {/* 본문 */}
       <div
-        className='rounded-b-[9px] border border-t-0 border-ed6-silverBorder bg-ed6-silver'
+        className='max-h-[calc(100dvh-110px)] overflow-y-auto rounded-b-[9px] border border-t-0 border-ed6-silverBorder bg-ed6-silver'
         style={{ boxShadow: 'inset 1px 1px 0 #fff' }}>
         {children}
       </div>

@@ -42,7 +42,7 @@ export const BoardWindow = ({ board, auth, initialPostId, onNavigate }: Props) =
   const canWrite = !!auth.user && (board !== 'notice' || auth.isAdmin);
 
   return (
-    <div className='max-h-[70vh] w-[min(90vw,520px)] overflow-y-auto p-3 sm:p-4'>
+    <div className='w-[min(90vw,520px)] p-3 sm:p-4'>
       <AuthBar auth={auth} />
 
       {mode.view === 'list' && (
