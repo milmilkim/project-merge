@@ -9,11 +9,11 @@ import { Hourglass } from './RetroIcons';
 export const TitleWindow = () => {
   return (
     <div className='w-[min(86vw,488px)] px-[26px] pb-6 pt-[22px]'>
-      <div className='merge-title text-[14px] tracking-[1px] text-ed6-lunaBlue'>
+      <div className='merge-title text-[15px] tracking-[1px] text-ed6-lunaBlue'>
         {edition6.subtitle}
       </div>
       <div
-        className='merge-title mb-[2px] mt-1 text-[28px] leading-[1.06] sm:text-[42px]'
+        className='merge-title mb-[2px] mt-1 text-[30px] leading-[32px] sm:text-[45px] sm:leading-[48px]'
         style={{ textShadow: '2px 2px 0 rgba(11,82,214,.16)' }}>
         제6회
         <br />
@@ -21,7 +21,7 @@ export const TitleWindow = () => {
       </div>
 
       <motion.span
-        className='font-galmuri11 mt-2 inline-block text-[22px] tracking-[5px] text-ed6-lunaBlue'
+        className='font-galmuri11 mt-2 inline-block text-[24px] tracking-[5px] text-ed6-lunaBlue'
         animate={{ opacity: [1, 1, 0, 0] }}
         transition={{
           duration: 1.3,
@@ -36,7 +36,7 @@ export const TitleWindow = () => {
         {edition6.info.map((row) => (
           <div
             key={row.label}
-            className='font-galmuri11 flex items-center gap-[10px] text-[11px]'>
+            className='font-galmuri11 flex items-center gap-[10px] text-[12px]'>
             <span className='w-[54px] text-[#666]'>{row.label}</span>
             <span
               className='flex-1 border border-[#9a9a9a] bg-white px-[9px] py-[4px] text-[#222]'
@@ -58,7 +58,7 @@ export const TitleWindow = () => {
           transition={{ duration: 0.9, ease: 'linear', repeat: Infinity }}
         />
       </div>
-      <div className='font-galmuri11 mt-[6px] flex items-center gap-[6px] text-[11px] text-[#666]'>
+      <div className='font-galmuri11 mt-[6px] flex items-center gap-[6px] text-[12px] text-[#666]'>
         <Hourglass size={12} />
         제6회를 준비하는 중입니다…
       </div>

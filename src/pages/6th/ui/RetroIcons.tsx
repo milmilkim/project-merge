@@ -16,7 +16,7 @@ export const Hourglass = ({ size = 14 }: { size?: number }) => (
       style={{
         width: size,
         height: size / 2,
-        background: '#0b52d6',
+        background: '#8b7fd9',
         clipPath: 'polygon(0 0,100% 0,50% 100%)',
       }}
     />
@@ -25,7 +25,7 @@ export const Hourglass = ({ size = 14 }: { size?: number }) => (
       style={{
         width: size,
         height: size / 2,
-        background: '#0b52d6',
+        background: '#8b7fd9',
         clipPath: 'polygon(50% 0,0 100%,100% 100%)',
       }}
     />
@@ -47,7 +47,7 @@ export const Hourglass = ({ size = 14 }: { size?: number }) => (
 export const BusySpinner = ({ size = 16 }: { size?: number }) => (
   <motion.span
     className='inline-block rounded-full border-[3px] border-[#cfcabd] align-middle'
-    style={{ width: size, height: size, borderTopColor: '#0b52d6' }}
+    style={{ width: size, height: size, borderTopColor: '#8b7fd9' }}
     animate={{ rotate: 360 }}
     transition={{ duration: 0.8, ease: 'linear', repeat: Infinity }}
   />

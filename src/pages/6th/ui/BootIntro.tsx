@@ -81,7 +81,7 @@ const PostScreen = ({ lines }: { lines: number }) => (
     className='absolute inset-0 flex items-center justify-center'
     style={{ background: '#04140c' }}>
     <div
-      className='font-galmuri11 w-[min(92vw,560px)] px-4 text-[11px] leading-[1.8] text-[#37e89a]'
+      className='font-galmuri11 w-[min(92vw,560px)] px-4 text-[12px] leading-[20px] text-[#37e89a]'
       style={{ textShadow: '0 0 6px rgba(55,232,154,.6)' }}>
       {POST_LINES.slice(0, lines).map((l, i) => (
         <div key={i} dangerouslySetInnerHTML={{ __html: l.html || '&nbsp;' }} />
@@ -104,12 +104,12 @@ const LogoScreen = () => (
     className='absolute inset-0 flex flex-col items-center justify-center'
     style={{ background: 'radial-gradient(circle at 50% 38%,#0a2a6e,#04102e 70%)' }}>
     <div
-      className='merge-title text-[14px] tracking-[3px]'
+      className='merge-title text-[15px] tracking-[3px]'
       style={{ color: ACCENT, textShadow: `0 0 10px ${ACCENT}` }}>
       MERGE OS 6
     </div>
     <div
-      className='merge-title my-2 text-center text-[28px] leading-[1.1] text-white'
+      className='merge-title my-2 text-center text-[30px] leading-[32px] text-white'
       style={{ textShadow: '0 0 14px rgba(120,180,255,.5)' }}>
       제6회
       <br />
@@ -126,7 +126,7 @@ const LogoScreen = () => (
         transition={{ duration: 1.2, ease: 'easeInOut', repeat: Infinity }}
       />
     </div>
-    <div className='font-galmuri11 mt-3 text-[11px] text-[#9fc0ff]'>시작하는 중…</div>
+    <div className='font-galmuri11 mt-3 text-[12px] text-[#9fc0ff]'>시작하는 중…</div>
   </motion.div>
 );
 
@@ -136,12 +136,12 @@ const WelcomeScreen = () => (
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
     className='absolute inset-0 flex items-center justify-center'
-    style={{ background: 'linear-gradient(120deg,#0b52d6,#1f8be8 50%,#0b52d6)' }}>
+    style={{ background: 'linear-gradient(120deg,#8b7fd9,#b3aaf0 50%,#8b7fd9)' }}>
     <div className='relative flex w-full max-w-[640px] items-center'>
       {/* 좌 */}
       <div className='flex-1 pr-6 text-right'>
         <span
-          className='font-galmuri11 text-[22px] text-white'
+          className='font-galmuri11 text-[24px] text-white'
           style={{ textShadow: '1px 1px 3px rgba(0,0,40,.5)' }}>
           환영합니다
         </span>
@@ -153,18 +153,18 @@ const WelcomeScreen = () => (
         <span
           className='h-11 w-11 rounded-full'
           style={{
-            background: `radial-gradient(circle at 35% 30%,${ACCENT},#0b88d6)`,
+            background: `radial-gradient(circle at 35% 30%,${ACCENT},#6f63c8)`,
             boxShadow: `0 0 16px ${ACCENT}`,
           }}
         />
-        <span className='font-galmuri11 text-[11px] leading-[1.6] text-white'>
-          방문자
+        <span className='font-galmuri11 text-[12px] leading-[18px] text-white'>
+          USER
           <br />
           <span className='text-[11px] text-[#cfe6ff]'>로그인 중…</span>
         </span>
       </div>
     </div>
-    <div className='font-galmuri11 absolute inset-x-0 bottom-[14px] text-center text-[11px] text-white/80'>
+    <div className='font-galmuri11 absolute inset-x-0 bottom-[14px] text-center text-[12px] text-white/80'>
       제6회 머지영화제 · MERGE OS 6
     </div>
   </motion.div>

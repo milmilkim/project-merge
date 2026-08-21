@@ -17,12 +17,12 @@ export const GlitchText = ({ children, className = '' }: Props) => (
       x: [0, -1, 1, -1, 0.5, 0],
       opacity: [1, 0.78, 1, 0.6, 1, 0.9],
       textShadow: [
-        '1px 0 #ff2d2d, -1px 0 #19e3d6',
-        '-1.5px 0 #ff2d2d, 1.5px 0 #19e3d6',
-        '1px 0 #ff2d2d, -1px 0 #19e3d6',
-        '0 0 #ff2d2d, 0 0 #19e3d6',
-        '1.5px 0 #ff2d2d, -1.5px 0 #19e3d6',
-        '1px 0 #ff2d2d, -1px 0 #19e3d6',
+        '1px 0 #ff2d2d, -1px 0 #7fe0d4',
+        '-1.5px 0 #ff2d2d, 1.5px 0 #7fe0d4',
+        '1px 0 #ff2d2d, -1px 0 #7fe0d4',
+        '0 0 #ff2d2d, 0 0 #7fe0d4',
+        '1.5px 0 #ff2d2d, -1.5px 0 #7fe0d4',
+        '1px 0 #ff2d2d, -1px 0 #7fe0d4',
       ],
     }}
     transition={{ duration: 1.8, ease: 'easeInOut', repeat: Infinity }}>
