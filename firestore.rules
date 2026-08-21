@@ -30,6 +30,12 @@ service cloud.firestore {
       allow update: if false;
     }
 
+    // 안내 페이지(소개/행사정보/티켓팅) 본문: 누구나 읽기, 관리자만 수정
+    match /pages/{pageId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     match /posts/{postId} {
       allow read: if true;
 

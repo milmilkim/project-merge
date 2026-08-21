@@ -1,4 +1,4 @@
-import type { ReactNode, ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import { BusySpinner } from './RetroIcons';
 import { CoverFlow } from './CoverFlow';
 import { SuggestWindow } from './SuggestWindow';
@@ -11,26 +11,7 @@ import type { AuthState } from '@/features/auth';
  * 페이지로 교체하면 된다.
  */
 
-/** XP 메모장/도움말 셸 — 메뉴바 + 본문 */
-const Notepad = ({ children }: { children: ReactNode }) => (
-  <div className='w-[min(86vw,320px)]'>
-    <div className='flex gap-[14px] border-b border-[#c4c0b2] bg-ed6-silver px-[10px] py-1 font-os text-[11px] text-[#333]'>
-      <span>파일</span>
-      <span>편집</span>
-      <span>서식</span>
-      <span>도움말</span>
-    </div>
-    <div
-      className='font-galmuri14 m-2 border border-[#9a9a9a] bg-white p-3 text-[15px] leading-[24px] text-[#222]'
-      style={{ boxShadow: 'inset 1px 1px 0 #cfcabd' }}>
-      {children}
-    </div>
-  </div>
-);
-
-const Point = ({ children }: { children: ReactNode }) => (
-  <b className='text-ed6-lunaBlue'>{children}</b>
-);
+import { EditablePage } from './EditablePage';
 
 const Pending = ({ label }: { label: string }) => (
   <span className='mt-1 flex items-center gap-2 text-[#666]'>
@@ -38,57 +19,53 @@ const Pending = ({ label }: { label: string }) => (
   </span>
 );
 
-/** 소개.txt — 머지영화제 소개 + 연혁(4회 톤) */
-export const AboutWindow = () => (
-  <Notepad>
-    <Point>머지영화제</Point>는 2018년부터 '릴리스의 신도들'이 주최하는,
-    다양한 장르와 형식의 드라마·애니메이션·영화를 한데 모아 선보이는 자체
-    영화제입니다.
-    <br />
-    <br />
-    이름 그대로 서로 다른 취향을 <Point>'MERGE'</Point>하여, 하나의 흐름 속에서
-    다양성을 축하합니다.
-    <br />
-    <br />
-    <Point>— 연혁 —</Point>
-    <ul className='mt-1 space-y-[2px]'>
-      <li>2018.12.26 · 머지영화제</li>
-      <li>2019.06.27 · 2회 : 사도의 습격</li>
-      <li>2020.12.20 · 3회 머지영화제</li>
-      <li>2023.09.28 · 4회 : REBIRTH N REVERSE</li>
-      <li>2024.12.27 · 5회 : 이상한 영화 몰아보기</li>
-      <li className='text-ed6-lunaBlue'>2026 · 6회 머지영화제 (준비중)</li>
-    </ul>
-  </Notepad>
+/** 안내 페이지 기본 본문(Firestore pages/{id} 없을 때). 관리자는 창에서 바로 수정한다. */
+const ABOUT_DEFAULT = `**머지영화제**는 2018년부터 '릴리스의 신도들'이 주최하는, 다양한 장르와 형식의 드라마·애니메이션·영화를 한데 모아 선보이는 자체 영화제입니다.
+
+이름 그대로 서로 다른 취향을 **'MERGE'**하여, 하나의 흐름 속에서 다양성을 축하합니다.
+
+## — 연혁 —
+2018.12.26 · 머지영화제
+2019.06.27 · 2회 : 사도의 습격
+2020.12.20 · 3회 머지영화제
+2023.09.28 · 4회 : REBIRTH N REVERSE
+2024.12.27 · 5회 : 이상한 영화 몰아보기
+2026 · 6회 머지영화제 (준비중)`;
+
+const EVENT_DEFAULT = `## 행사정보
+
+일시 · 장소가 확정되는 대로 이곳에 공지됩니다.`;
+
+const TICKET_DEFAULT = `## 티켓팅
+
+예매는 아직 열리지 않았습니다. 상영작 공개 후 오픈 예정입니다.`;
+
+/** 소개.txt */
+export const AboutWindow = ({ auth }: { auth: AuthState }) => (
+  <EditablePage id='about' fallback={ABOUT_DEFAULT} auth={auth} />
 );
 
-/** 행사정보.hlp — 일시·장소 안내(미정) */
-export const EventWindow = () => (
-  <Notepad>
-    <Point>행사정보</Point>
-    <br />
-    <br />
-    일시 · 장소가 확정되는 대로 이곳에 공지됩니다.
-    <br />
-    <br />
-    <Pending label='정보 수신 대기중…' />
-  </Notepad>
+/** 행사정보.hlp */
+export const EventWindow = ({ auth }: { auth: AuthState }) => (
+  <EditablePage
+    id='event'
+    fallback={EVENT_DEFAULT}
+    auth={auth}
+    footer={<Pending label='정보 수신 대기중…' />}
+  />
 );
 
 /** 상영작.exe — 커버플로우 라인업 브라우저(포스터 TBD) */
 export const FilmsWindow = () => <CoverFlow />;
 
 /** 티켓팅 — 준비중(비활성) */
-export const TicketWindow = () => (
-  <Notepad>
-    <Point>티켓팅</Point>
-    <br />
-    <br />
-    예매는 아직 열리지 않았습니다. 상영작 공개 후 오픈 예정입니다.
-    <br />
-    <br />
-    <Pending label='예매 오픈 준비중…' />
-  </Notepad>
+export const TicketWindow = ({ auth }: { auth: AuthState }) => (
+  <EditablePage
+    id='ticket'
+    fallback={TICKET_DEFAULT}
+    auth={auth}
+    footer={<Pending label='예매 오픈 준비중…' />}
+  />
 );
 
 export interface WindowDef {

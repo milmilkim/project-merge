@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { AuthState } from '@/features/auth';
+import { RichText } from '@/shared/ui/RichText';
 import {
   addComment,
   deleteComment,
@@ -82,9 +83,11 @@ export const PostView = ({ postId, auth, onBack, onEdit }: Props) => {
           {post.authorName} · {fmt(post.createdAt)}
           {post.updatedAt && ' · (수정됨)'}
         </p>
-        <p className='mt-3 whitespace-pre-wrap font-galmuri14 text-[15px] leading-[26px] text-ed6-text'>
-          {post.content}
-        </p>
+        <RichText
+          text={post.content}
+          headingClassName='font-bold text-ed6-lunaBlue'
+          className='mt-3 font-galmuri14 text-[15px] leading-[26px] text-ed6-text'
+        />
       </article>
 
       {/* 댓글 */}

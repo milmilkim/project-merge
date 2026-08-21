@@ -54,7 +54,7 @@ export const PostForm = ({ board, postId, onDone, onCancel }: Props) => {
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder='내용'
+        placeholder={'내용  (## 소제목, **굵게**, 빈 줄로 문단 구분)'}
         rows={8}
         className='w-full resize-y border border-[#9a9a9a] bg-white px-2 py-1 font-galmuri14 text-[15px] leading-[24px] text-ed6-text'
       />
