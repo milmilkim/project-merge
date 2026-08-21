@@ -47,12 +47,7 @@ export const AboutWindow = ({ auth }: { auth: AuthState }) => (
 
 /** 행사정보.hlp */
 export const EventWindow = ({ auth }: { auth: AuthState }) => (
-  <EditablePage
-    id='event'
-    fallback={EVENT_DEFAULT}
-    auth={auth}
-    footer={<Pending label='정보 수신 대기중…' />}
-  />
+  <EditablePage id='event' fallback={EVENT_DEFAULT} auth={auth} />
 );
 
 /** 상영작.exe — 커버플로우 라인업 브라우저(포스터 TBD) */
