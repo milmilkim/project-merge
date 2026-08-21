@@ -99,6 +99,8 @@ export const Desktop = () => {
   const isTouch =
     typeof window !== 'undefined' &&
     window.matchMedia('(max-width: 640px)').matches;
+  // 모바일은 위젯이 아이콘을 가리므로 접힌 채 시작
+  const [widgetOpen, setWidgetOpen] = useState(!isTouch);
 
   /** 단일 창 정책: 항상 한 창만 열리고 나머지는 작업표시줄로 최소화된다. */
   const focus = (id: string) => {
@@ -127,6 +129,7 @@ export const Desktop = () => {
 
   /** 최근 글 위젯 → 해당 게시판 창을 그 글 상세로 연다 */
   const openBoardPost = (post: Post) => {
+    if (isTouch) setWidgetOpen(false);
     setPendingPost({ board: post.board, id: post.id });
     focus(`board:${post.board}`);
   };
@@ -163,36 +166,43 @@ export const Desktop = () => {
       onClick={() => setSelected(null)}>
       <BlissBackground />
 
-      {/* 바탕화면 아이콘 + 최근 글 위젯.
-          데스크탑: 아이콘은 좌측 세로 열(XP식, 차면 다음 열), 위젯은 우상단 고정.
-          모바일: 위젯이 아이콘을 가리므로 한 흐름으로 — 아이콘 4열 그리드 아래에 위젯, 전체 세로 스크롤 */}
+      {/* 바탕화면 아이콘 — 좌상단부터 세로로 쌓되, 높이가 차면 다음 열로 자동 정렬(XP식) */}
       <div
-        className={
-          isTouch
-            ? 'absolute inset-x-2 top-[18px] bottom-[52px] z-10 flex flex-col gap-3 overflow-y-auto'
-            : 'contents'
-        }
+        className='absolute left-2 top-[18px] bottom-[52px] z-10 flex flex-col flex-wrap content-start gap-x-1 gap-y-[6px]'
         onClick={(e) => e.stopPropagation()}>
-        <div
-          className={
-            isTouch
-              ? 'grid grid-cols-4 justify-items-center gap-y-[6px]'
-              : 'absolute left-2 top-[18px] bottom-[52px] z-10 flex flex-col flex-wrap content-start gap-x-1 gap-y-[6px]'
-          }>
-          {desktopIcons.map((def) => (
-            <DesktopIcon
-              key={def.id}
-              def={def}
-              selected={selected === def.id}
-              onSelect={setSelected}
-              onOpen={openIcon}
-              badge={isBoardId(def.id) && newBoards.has(boardOf(def.id))}
-            />
-          ))}
-        </div>
-        <div className={isTouch ? 'w-full' : 'absolute right-3 top-[18px] z-10 w-[250px]'}>
-          <RecentPostsWidget onOpen={openBoardPost} />
-        </div>
+        {desktopIcons.map((def) => (
+          <DesktopIcon
+            key={def.id}
+            def={def}
+            selected={selected === def.id}
+            onSelect={setSelected}
+            onOpen={openIcon}
+            badge={isBoardId(def.id) && newBoards.has(boardOf(def.id))}
+          />
+        ))}
+      </div>
+
+      {/* 최근 글 위젯 — 우상단. 모바일은 아이콘을 가리므로 기본 접힘, 탭으로 토글 */}
+      <div
+        className='absolute right-2 top-[18px] z-20 flex flex-col items-end gap-1 sm:right-3'
+        onClick={(e) => e.stopPropagation()}>
+        {isTouch && (
+          <button
+            onClick={() => setWidgetOpen((o) => !o)}
+            className='flex items-center gap-[5px] rounded-[3px] border border-[#c9bfec] bg-white/90 px-2 py-[4px] font-galmuri11 text-[12px] text-[#5a4f8a] shadow-[1px_2px_0_rgba(0,0,0,.2)]'>
+            <span className='h-[9px] w-[9px] rounded-[2px] bg-[#8b7fd9]' />
+            공지·최신글
+            {!widgetOpen && newBoards.size > 0 && (
+              <span className='font-galmuri9 text-[9px] font-bold text-[#ff3b30]'>N</span>
+            )}
+            <span className='text-[10px]'>{widgetOpen ? '▲' : '▼'}</span>
+          </button>
+        )}
+        {widgetOpen && (
+          <div className='w-[min(250px,calc(100vw-16px))]'>
+            <RecentPostsWidget onOpen={openBoardPost} />
+          </div>
+        )}
       </div>
 
       {/* 창들 */}
