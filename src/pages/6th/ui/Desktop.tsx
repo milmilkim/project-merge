@@ -163,27 +163,36 @@ export const Desktop = () => {
       onClick={() => setSelected(null)}>
       <BlissBackground />
 
-      {/* 바탕화면 아이콘 — 좌상단부터 세로로 쌓되, 높이가 차면 다음 열로 자동 정렬(XP식) */}
+      {/* 바탕화면 아이콘 + 최근 글 위젯.
+          데스크탑: 아이콘은 좌측 세로 열(XP식, 차면 다음 열), 위젯은 우상단 고정.
+          모바일: 위젯이 아이콘을 가리므로 한 흐름으로 — 아이콘 4열 그리드 아래에 위젯, 전체 세로 스크롤 */}
       <div
-        className='absolute left-2 top-[18px] bottom-[52px] z-10 flex flex-col flex-wrap content-start gap-x-1 gap-y-[6px]'
+        className={
+          isTouch
+            ? 'absolute inset-x-2 top-[18px] bottom-[52px] z-10 flex flex-col gap-3 overflow-y-auto'
+            : 'contents'
+        }
         onClick={(e) => e.stopPropagation()}>
-        {desktopIcons.map((def) => (
-          <DesktopIcon
-            key={def.id}
-            def={def}
-            selected={selected === def.id}
-            onSelect={setSelected}
-            onOpen={openIcon}
-            badge={isBoardId(def.id) && newBoards.has(boardOf(def.id))}
-          />
-        ))}
-      </div>
-
-      {/* 최근 글 위젯 — 우상단 상주. 모바일은 아이콘 열(≈100px) 남기고 나머지 폭 */}
-      <div
-        className='absolute right-2 top-[18px] z-10 w-[min(250px,calc(100vw-112px))] sm:right-3'
-        onClick={(e) => e.stopPropagation()}>
-        <RecentPostsWidget onOpen={openBoardPost} />
+        <div
+          className={
+            isTouch
+              ? 'grid grid-cols-4 justify-items-center gap-y-[6px]'
+              : 'absolute left-2 top-[18px] bottom-[52px] z-10 flex flex-col flex-wrap content-start gap-x-1 gap-y-[6px]'
+          }>
+          {desktopIcons.map((def) => (
+            <DesktopIcon
+              key={def.id}
+              def={def}
+              selected={selected === def.id}
+              onSelect={setSelected}
+              onOpen={openIcon}
+              badge={isBoardId(def.id) && newBoards.has(boardOf(def.id))}
+            />
+          ))}
+        </div>
+        <div className={isTouch ? 'w-full' : 'absolute right-3 top-[18px] z-10 w-[250px]'}>
+          <RecentPostsWidget onOpen={openBoardPost} />
+        </div>
       </div>
 
       {/* 창들 */}

@@ -50,7 +50,8 @@ export const BoardList = ({ board, canWrite, onOpen, onCreate }: Props) => {
                 {p.title}
                 <NewBadge createdAt={p.createdAt} />
               </span>
-              <span className='shrink-0 font-galmuri9 text-[10px] text-[#888]'>
+              {/* 모바일은 제목+N만 — 작성자·날짜는 상세에서 */}
+              <span className='hidden shrink-0 font-galmuri9 text-[10px] text-[#888] sm:inline'>
                 {p.authorName} · {fmt(p.createdAt)}
               </span>
             </button>
